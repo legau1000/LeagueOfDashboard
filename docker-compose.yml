@@ -1,0 +1,63 @@
+version: "3"
+services:
+
+  dashboard-api:
+    build: ./dashboard-api
+    ports:
+    - "5000:5000"
+    - "5001:5001"
+    networks:
+    - poll-tier
+    environment:
+      HOST: redis
+
+  redis:
+    image: redis
+    ports:
+    - "6379"
+    networks:
+    - poll-tier
+    - back-tier
+  
+  db:
+    image: postgres
+    networks:
+    - result-tier
+    - back-tier
+  
+  dashboard-front:
+    build: ./dashboard-front
+    ports:
+    - "3000:3000"
+    tty: true
+    networks:
+    - result-tier
+    environment:
+      HOST: db
+
+networks:
+  poll-tier:
+  result-tier:
+  back-tier:
+volumes:
+  db-data:
+  redis:
+    image: redis
+    ports:
+    - "6379"
+    networks:
+    - poll-tier
+    - back-tier
+  
+  db:
+    image: postgres
+    networks:
+    - result-tier
+    - back-tier
+
+networks:
+  poll-tier:
+  result-tier:
+  back-tier:
+volumes:
+  db-data:

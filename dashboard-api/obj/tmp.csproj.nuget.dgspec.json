@@ -1,0 +1,79 @@
+{
+  "format": 1,
+  "restore": {
+    "/home/blanc_p/tek3/DEV/DEV_dashboard_2019/dashboard-api/tmp.csproj": {}
+  },
+  "projects": {
+    "/home/blanc_p/tek3/DEV/DEV_dashboard_2019/dashboard-api/tmp.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/blanc_p/tek3/DEV/DEV_dashboard_2019/dashboard-api/tmp.csproj",
+        "projectName": "tmp",
+        "projectPath": "/home/blanc_p/tek3/DEV/DEV_dashboard_2019/dashboard-api/tmp.csproj",
+        "packagesPath": "/home/blanc_p/.nuget/packages/",
+        "outputPath": "/home/blanc_p/tek3/DEV/DEV_dashboard_2019/dashboard-api/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/blanc_p/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.0": {
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.0": {
+          "dependencies": {
+            "MySql.data": {
+              "target": "Package",
+              "version": "[8.0.18, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[12.0.2, )"
+            },
+            "mysql": {
+              "target": "Package",
+              "version": "[5.5.14.1, )"
+            },
+            "refit": {
+              "target": "Package",
+              "version": "[4.7.51, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/3.0.100/RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
