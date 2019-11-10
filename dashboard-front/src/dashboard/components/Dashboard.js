@@ -1,21 +1,27 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import Body from '../body';
+import Header from '../header';
+import ListDashboard from'../list';
+
 import {
-  Grid,  Button,
+  Grid
  } from '@material-ui/core';
 
 
 const Dashboard = ({ classes }) => (
   <Grid container>
-    <Grid item xs={9} className={classes.profileWrapper}>
-      <div>
-            <Button color="primary">
-              Annuler
-            </Button>
-      </div>
+    <Grid item xs={12} className={classes.dashboardHeader}>
+      <Header />
     </Grid>
-  </Grid>
+    <Grid item xs={3} className={classes.dashboardList}>
+      <ListDashboard />
+    </Grid>
+    <Grid item xs={9} className={classes.dashboardBody}>
+      <Body />
+    </Grid>
+    </Grid>
 );
 
 Dashboard.propTypes = {

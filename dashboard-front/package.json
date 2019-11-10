@@ -4,9 +4,11 @@
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.5.2",
+    "@material-ui/icons": "^4.5.1",
     "react": "^16.11.0",
     "react-cookie": "^4.0.1",
     "react-dom": "^16.11.0",
+    "react-responsive-widget": "^2.1.0",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.2.0"
   },

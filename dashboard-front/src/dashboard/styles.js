@@ -1,15 +1,12 @@
 export default () => ({
-  administrativeWrapper: {
+  dashboardHeader: {
     marginTop: '1rem',
   },
-  profileWrapper: {
+  dashboardBody: {
     padding: '1rem',
+    border: '3px solid black',
   },
-  cartWrapper: {
-    padding: '1rem',
-  },
-  samplesWrapper: {
-    padding: '1rem',
-    marginLeft: '2rem',
-  },
+  dashboardList: {
+    border: '3px solid black',
+  }
 });

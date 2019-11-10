@@ -4,7 +4,7 @@ import { Router, Route, Switch } from 'react-router-dom';
 
 import history from './history';
 import Dashboard from './dashboard';
-import './App.css';
+import Authentification from './authentification';
 
 const RouteComponent = ({
   component: Component,
@@ -29,6 +29,11 @@ export default () => (
             path="/"
             component={Dashboard}
           />
+        <RouteComponent
+          exact
+          path="/authentification"
+          component={Authentification}
+        />
         </Switch>
       </Router>
   </CookiesProvider>
