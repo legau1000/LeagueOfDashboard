@@ -5930,24 +5930,26 @@
     ]
   },
   "packageFolders": {
-    "/home/blanc_p/.nuget/packages/": {}
+    "C:\\Users\\legau1000\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/blanc_p/tek3/DEV/DEV_dashboard_2019/dashboard-api/tmp.csproj",
+      "projectUniqueName": "C:\\Users\\legau1000\\Desktop\\DEV_dashboard_2019\\dashboard-api\\tmp.csproj",
       "projectName": "tmp",
-      "projectPath": "/home/blanc_p/tek3/DEV/DEV_dashboard_2019/dashboard-api/tmp.csproj",
-      "packagesPath": "/home/blanc_p/.nuget/packages/",
-      "outputPath": "/home/blanc_p/tek3/DEV/DEV_dashboard_2019/dashboard-api/obj/",
+      "projectPath": "C:\\Users\\legau1000\\Desktop\\DEV_dashboard_2019\\dashboard-api\\tmp.csproj",
+      "packagesPath": "C:\\Users\\legau1000\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\legau1000\\Desktop\\DEV_dashboard_2019\\dashboard-api\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/home/blanc_p/.nuget/NuGet/NuGet.Config"
+        "C:\\Users\\legau1000\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp3.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -5999,7 +6001,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/3.0.100/RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
       }
     }
   }

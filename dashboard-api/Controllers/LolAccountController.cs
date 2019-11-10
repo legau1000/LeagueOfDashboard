@@ -19,17 +19,15 @@ namespace dashboardAPI.Controllers
     {
         #region MEMBERS
         private readonly ILogger<AccountController> _logger;
-        private AccountClient _AccountClient;         private MySqlConnection _DataBase;
+        private AccountClient _AccountClient;
 
         #endregion MEMBERS
 
         #region CONSTRUCTOR
         public AccountController(ILogger<AccountController> logger)
         {
-            string MySQLConnectionString = "datasource=127.0.0.1;port=3306;username=root;password=;database=riotboard";
             _AccountClient = RestService.For<AccountClient>("https://euw1.api.riotgames.com/lol/summoner/v4/summoners/by-name/");
             _logger = logger;
-            _DataBase = new MySqlConnection(MySQLConnectionString);
         }
 
         #endregion CONSTRUCTOR

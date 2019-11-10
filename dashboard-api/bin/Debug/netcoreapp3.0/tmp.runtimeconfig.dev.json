@@ -1,8 +1,8 @@
 {
   "runtimeOptions": {
     "additionalProbingPaths": [
-      "/home/blanc_p/.dotnet/store/|arch|/|tfm|",
-      "/home/blanc_p/.nuget/packages"
+      "C:\\Users\\legau1000\\.dotnet\\store\\|arch|\\|tfm|",
+      "C:\\Users\\legau1000\\.nuget\\packages"
     ]
   }
 }
