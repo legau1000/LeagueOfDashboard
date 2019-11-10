@@ -1,9 +1,9 @@
-FROM node:12.13.0-alpine as react-build
+FROM node:12.13.0
 
-WORKDIR ./dashboard-front
+WORKDIR /dashboard-front
 
-COPY . ./
+COPY package*.json ./
 
 EXPOSE 3000
 
-CMD ["yarn", "run", "start"]
+CMD [ "yarn", "start" ]
