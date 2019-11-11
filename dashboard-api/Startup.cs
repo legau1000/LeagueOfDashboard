@@ -36,6 +36,7 @@ namespace dashboardAPI
             app.UseHttpsRedirection();
 
             app.UseRouting();
+            app.UseCors("ApiCorsPolicy");
 
             app.UseAuthorization();
 
