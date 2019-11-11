@@ -21,9 +21,8 @@ namespace dashboardAPI
             services.AddControllers();
             services.AddCors(options => options.AddPolicy("ApiCorsPolicy", builder =>
             {
-                builder.WithOrigins("http://localhost:3000").AllowAnyMethod().AllowAnyHeader();
+                builder.WithOrigins("*").AllowAnyMethod().AllowAnyHeader();
             }));
-            //services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -34,10 +33,10 @@ namespace dashboardAPI
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseCors("ApiCorsPolicy");
             app.UseHttpsRedirection();
 
             app.UseRouting();
-            app.UseCors("ApiCorsPolicy");
 
             app.UseAuthorization();
 
