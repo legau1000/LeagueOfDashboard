@@ -19,7 +19,7 @@ const Header = ({ classes }) => (
 	</div>
 	<div className={classes.div3}>
 		<img className={classes.logoUser} src={LogoUser} alt="logoUser" />
-		<Typography className={classes.profileName}>profil_name</Typography>
+		<Typography className={classes.profileName}></Typography>
 		<Button className={classes.button}>
 					Déconnexion
       	</Button>

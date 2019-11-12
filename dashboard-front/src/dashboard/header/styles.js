@@ -3,7 +3,7 @@ export default () => ({
 		display: 'flex',
 		flexWrap: 'wrap',
 		fontFamily: 'CormorantGaramond-Regular',
-		color: 'black',
+		color: 'white',
 		padding: '0.5rem',
 		fontSize: '6rem',
 	},
@@ -19,7 +19,7 @@ export default () => ({
 	},
 	profileName: {
 		fontFamily: 'CormorantGaramond-Regular',
-		color: 'black',
+		color: 'white',
 		padding: '0.5rem',
 		fontSize: '1.2rem',
 	},
