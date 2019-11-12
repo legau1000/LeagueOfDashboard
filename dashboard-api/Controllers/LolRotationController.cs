@@ -14,7 +14,7 @@ using dashboardAPI.Clients;
 namespace dashboardAPI.Controllers
 {
     [ApiController]
-    [Route("/lol/Rotation")]
+    [Route("/lol/rotation")]
     public class RotationController
     {
         #region MEMBERS
@@ -58,6 +58,17 @@ namespace dashboardAPI.Controllers
             return ("NOTHING");
         }
 
+        private string GetPictureChampion(string ID)
+        {
+            foreach(KeyValuePair<string, DataChampionModel> entry in _ListChampion.data)
+            {
+                if (ID == entry.Value.key) {
+                    return (entry.Value.image.full);
+                }
+            }
+            return ("NOTHING");
+        }
+
         [HttpGet("")]
         public async Task<List<ChampRotationList>> GetRotationChampionsAsync()
         {
@@ -79,7 +90,7 @@ namespace dashboardAPI.Controllers
                     name = GetNameChampion(IdChamp);
                     tmpRotation.id = IdChamp;
                     tmpRotation.name = name;
-                    tmpRotation.linkPicture = "http://ddragon.leagueoflegends.com/cdn/9.22.1/img/champion/" + name + ".png";
+                    tmpRotation.linkPicture = "http://ddragon.leagueoflegends.com/cdn/9.22.1/img/champion/" + GetPictureChampion(IdChamp);
                     tmpListRotation.Add(tmpRotation);
                 }
                 return (tmpListRotation);

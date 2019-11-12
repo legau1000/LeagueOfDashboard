@@ -19,8 +19,7 @@ namespace dashboardAPI.Controllers
     {
         #region MEMBERS
         private readonly ILogger<GameControllers> _logger;
-        private HistoryClient _HistoryClient;
-        private AccountClient _AccountClient;
+        private GameClient _GameClient;
         private ChampionClient _ChampionClient;
         //private ListAllChampModel _ListChampion;
         private ListAllChampModel _ListChampion;
@@ -32,8 +31,7 @@ namespace dashboardAPI.Controllers
         #region CONSTRUCTOR
         public GameControllers(ILogger<GameControllers> logger)
         {
-            _HistoryClient = RestService.For<HistoryClient>("https://euw1.api.riotgames.com/lol/match/v4/");
-            _AccountClient = RestService.For<AccountClient>("https://euw1.api.riotgames.com/lol/summoner/v4/summoners/by-name/");
+            _GameClient = RestService.For<GameClient>("https://euw1.api.riotgames.com/lol/match/v4/matches/");
             _ChampionClient = RestService.For<ChampionClient>("http://ddragon.leagueoflegends.com/cdn/9.22.1/data/en_US");
             _logger = logger;
             _token = "RGAPI-d781b69e-f8f9-4689-b59a-d700c3f62a13";
@@ -43,46 +41,29 @@ namespace dashboardAPI.Controllers
 
         #region ROUTES
 
-        [HttpGet("{summonerName}")]
-        public async Task<ListHistoryModel> GetListGamesAsync(string summonerName)
+        [HttpGet("{matchId}")]
+        public async Task<GameModel> GetGameAsync(long matchId)
         {
-            _logger.LogInformation($"Trying to get 100 last games League Of Legend by name: {summonerName}");
+            _logger.LogInformation($"Trying to get 100 last games League Of Legend by name: {matchId}");
 
             try {
                 if (_ListChampion == null) {
                     var GetValueAllChamp = await _ChampionClient.GetAllChampAsync();
                     _ListChampion = JsonConvert.DeserializeObject<ListAllChampModel>(GetValueAllChamp);
                 }
-                var Account = await _AccountClient.GetAccountAsync(_token, summonerName);
-                var ResAccount = JsonConvert.DeserializeObject<AccountModel>(Account);
-                var GamesUser = await _HistoryClient.GetListHistoryAsync(_token, ResAccount.accountId);
-                var Result = JsonConvert.DeserializeObject<ListHistoryModel>(GamesUser);
-                Result = AnalyseDatasGetGale(Result);
+                var GamesUser = await _GameClient.GetGameAsync(_token, matchId);
+                var Result = JsonConvert.DeserializeObject<GameModel>(GamesUser);
+                foreach (var item in Result.teams)
+                {
+                    if (item.teamId == 100) {
+                        item.teamColor = "blue";
+                    } else {
+                        item.teamColor = "red";
+                    }
+                }
                 return (Result);
             } catch (Exception exception) {
                 _logger.LogInformation($"Echec to get 100 last games League Of Legend by name: {exception.Message}");
-                return (null);
-            }
-        }
-
-        [HttpGet("{summonerName}/{endIndex}")]
-        public async Task<ListHistoryModel> GetListGamesAsync(string summonerName, int endIndex)
-        {
-            _logger.LogInformation($"Trying to get {endIndex} last games League Of Legend by name: {summonerName}");
-
-            try {
-                if (_ListChampion == null) {
-                    var GetValueAllChamp = await _ChampionClient.GetAllChampAsync();
-                    _ListChampion = JsonConvert.DeserializeObject<ListAllChampModel>(GetValueAllChamp);
-                }
-                var Account = await _AccountClient.GetAccountAsync(_token, summonerName);
-                var ResAccount = JsonConvert.DeserializeObject<AccountModel>(Account);
-                var GamesUser = await _HistoryClient.GetListHistoryByChampAsync(_token, ResAccount.accountId, endIndex);
-                var Result = JsonConvert.DeserializeObject<ListHistoryModel>(GamesUser);
-                Result = AnalyseDatasGetGale(Result);
-                return (Result);
-            } catch (Exception exception) {
-                _logger.LogInformation($"Echec to get {endIndex} last games League Of Legend by name: {exception.Message}");
                 return (null);
             }
         }

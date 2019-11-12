@@ -19,7 +19,7 @@ namespace dashboardAPI.Models
         public int dragonKills { get; set; }
         public int vilemawKills { get; set; }
         public int riftHeraldKills { get; set; }
-        //public List<TeamStatsDto> bans { get; set; }
+        public List<TeamStatsDto> bans { get; set; }
     }
     public class GameModel
     {
