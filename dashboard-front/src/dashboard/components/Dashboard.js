@@ -15,10 +15,7 @@ const Dashboard = ({ classes }) => (
     <Grid item xs={12} className={classes.dashboardHeader}>
       <Header />
     </Grid>
-    <Grid item xs={3} className={classes.dashboardList}>
-      <ListDashboard />
-    </Grid>
-    <Grid item xs={9} className={classes.dashboardBody}>
+    <Grid item xs={12} className={classes.dashboardBody}>
       <Body />
     </Grid>
     </Grid>

@@ -19,6 +19,8 @@ export default function ListDashboard({classes}) {
 			newChecked.splice(currentIndex, 1);
 		}
 
+		console.log(value);
+		console.log(newChecked);
 		setChecked(newChecked);
 	};
 
@@ -38,7 +40,7 @@ export default function ListDashboard({classes}) {
 								inputProps={{ 'aria-labelledby': labelId }}
 							/>
 						</ListItemIcon>
-						<ListItemText id={labelId} primary={`Widget Riot ${value + 1}`} />
+						<ListItemText id={labelId} primary={`Widget Riot ${value + 1}`} className={classes.itemText} />
 					</ListItem>
 				);
 			})}

@@ -1,7 +1,37 @@
-import React  from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
-class Body extends React.Component {
+import Match from '../match';
+import User from '../user';
+import Rotation from '../rotation';
+
+import {
+	Grid, Hidden
+} from '@material-ui/core';
+
+
+const Body = ({ classes }) => (
+	<Grid container>
+		<Grid item xs={5} className={classes.match}>
+			<Match />
+		</Grid>
+		<Grid item xs={5} className={classes.user}>
+			<User />
+		</Grid>
+		<Grid item xs={5} className={classes.rotation}>
+			<Rotation />
+		</Grid>
+	</Grid>
+);
+
+Body.propTypes = {
+	classes: PropTypes.object.isRequired,
+};
+
+export default Body;
+
+
+/*class Body extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -13,14 +43,10 @@ class Body extends React.Component {
 
 	componentDidMount() {
 		console.log("oui")
-		const url = "http://0.0.0.0:5000/lol/Rotation";
+		const url = "https://localhost:5001/lol/Rotation";
 		
-		fetch(url, {
-			method: "GET",
-			headers: {
-				"Access-Control-Allow-Origin": "http://localhost:3000/"
-			},
-		})
+		fetch(url
+		)
 			.then(res => res.json())
 			.then(
 				(result) => {
@@ -65,4 +91,4 @@ Body.propTypes = {
 	classes: PropTypes.object.isRequired,
 };
 
-export default Body;
+export default Body;*/

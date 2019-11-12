@@ -4,8 +4,8 @@ WORKDIR /dashboard-api
 
 COPY . ./
 
-EXPOSE 5000
+EXPOSE 5001
 
-CMD ["dotnet", "watch", "run", "--urls", "http://0.0.0.0:5000"]
+CMD ["dotnet", "watch", "run", "--urls", "https://0.0.0.0:5001"]
 
 
