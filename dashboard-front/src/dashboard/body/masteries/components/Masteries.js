@@ -1,4 +1,4 @@
-import React from 'react';
+import React  from 'react';
 import PropTypes from 'prop-types';
 
 import {
@@ -12,7 +12,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 
 
-class Match extends React.Component {
+class Masteries extends React.Component {
 	static propTypes = {
 		classes: PropTypes.object.isRequired,
 		account: PropTypes.string.isRequired,
@@ -22,22 +22,22 @@ class Match extends React.Component {
 		this.state = {
 			error: null,
 			isLoaded: false,
-			matchId: [],
-			matchInfos: [],
+			User: [],
 			expanded: false,
 		};
 	}
 
 	componentDidMount() {
-		const url = "https://0.0.0.0:5001/lol/history/legau1000/1";
+		const url = "https://0.0.0.0:5001/lol/masteries/details/mananka";
 
-		fetch(url)
+		fetch(url
+		)
 			.then(res => res.json())
 			.then(
 				(result) => {
 					this.setState({
 						isLoaded: true,
-						matchId: result
+						User: result
 					});
 				},
 				(error) => {
@@ -50,30 +50,30 @@ class Match extends React.Component {
 	}
 
 	timeConverter = timestamp => {
-		const a = new Date(timestamp * 1);
-		const months = [
-			'01',
-			'02',
-			'03',
-			'04',
-			'05',
-			'06',
-			'07',
-			'08',
-			'09',
-			'10',
-			'11',
-			'12',
-		];
-		const year = a.getFullYear();
-		const month = months[a.getMonth()];
-		const date = a.getDate();
-		const hours = a.getHours();
-		const minutes = "0" + a.getMinutes();
-		const seconds = "0" + a.getSeconds();
-		const time = month + '-' + date + '-' + year + ' ' + hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
-		return time;
-	};
+    const a = new Date(timestamp * 1);
+    const months = [
+      '01',
+      '02',
+      '03',
+      '04',
+      '05',
+      '06',
+      '07',
+      '08',
+      '09',
+      '10',
+      '11',
+      '12',
+    ];
+    const year = a.getFullYear();
+    const month = months[a.getMonth()];
+	const date = a.getDate();
+	const hours = a.getHours();
+	const minutes = "0" + a.getMinutes();
+	const seconds = "0" + a.getSeconds();
+	const time = month + '-' + date + '-' + year + ' ' + hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
+    return time;
+  };
 
 	handleExpandClick = () => {
 		if (this.expanded) {
@@ -84,30 +84,11 @@ class Match extends React.Component {
 			this.setState({ expanded: true })
 			this.expanded = true;
 		}
-		fetch(`https://0.0.0.0:5001/lol/game/${this.state.matchId.matches[0].gameId}`)
-			.then(res => res.json())
-			.then(
-				(result) => {
-					this.setState({
-						isLoaded: true,
-						matchInfos: result
-					});
-				},
-				(error) => {
-					this.setState({
-						isLoaded: true,
-						error
-					});
-				}
-			)
-
-		console.log(this.state.matchInfos);
 	};
 
 	render() {
-		const { error, isLoaded, expanded, matchInfos } = this.state;
+		const { error, isLoaded, User, expanded } = this.state;
 		const { classes } = this.props;
-
 
 		if (error) {
 			return <div>Erreur : {error.message}</div>;
@@ -127,11 +108,27 @@ class Match extends React.Component {
 						</IconButton>
 					</div>
 					<div>
-						<Typography className={classes.title}>Votre dernier match</Typography>
+						<Typography className={classes.title}>Vos champions</Typography>
 						<Collapse in={expanded} timeout="auto" unmountOnExit>
 							<CardContent>
 								<div>
-									
+									<div>
+										<GridList cellHeight={200} cellWidth={200} cols={2} className={classes.gridList}>
+											{User.map(tile => (
+												<GridListTile key={tile.image} >
+													<img src={tile.linkPicture} className={classes.image} alt="image champion" />
+													<GridListTileBar
+														title={tile.name}
+														titlePosition="top"
+														actionPosition="right"
+													/>
+													<Typography className={classes.level}>Level : {tile.championLevel}</Typography>
+													<Typography className={classes.points}>Points : {tile.championPoints}</Typography>
+													<Typography className={classes.time}>Dernière fois joué : {this.timeConverter(tile.lastPlayTime)}</Typography>
+												</GridListTile>
+											))}
+										</GridList>
+									</div>
 								</div>
 							</CardContent>
 						</Collapse>
@@ -142,10 +139,9 @@ class Match extends React.Component {
 	}
 }
 
-Match.propTypes = {
+Masteries.propTypes = {
 	classes: PropTypes.object.isRequired,
 };
 
-export default Match;
-
+export default Masteries;
 

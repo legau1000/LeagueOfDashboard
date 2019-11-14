@@ -11,6 +11,7 @@ export default () => ({
 	},
 	image:
 	{
+		marginTop: '2rem',
 		width: '7.5rem',
 		height: '7.5rem',
 	},
@@ -27,18 +28,26 @@ export default () => ({
 		fontFamily: 'Futura',
 		color: 'white',
 		textAlign: 'center',
-		fontSize: '3rem',
-		marginTop: '15%',
 	},
 	level: {
 		color: '#fff',
-		marginTop: '30%',
+		marginTop: '-30%',
 		marginLeft: '2rem',
-		fontFamily: 'Futura',
+		fontFamily: 'Courier',
 		textAlign: 'center',
-		fontSize: '3rem',
 		textShadow: '0 0 40px #fff',
-
+	},
+	points: {
+		color: '#fff',
+		marginLeft: '2rem',
+		fontFamily: 'Courier',
+		textAlign: 'center',
+	},
+	time: {
+		color: '#fff',
+		marginLeft: '2rem',
+		fontFamily: 'Courier',
+		textAlign: 'center',
 	},
 	div1: {
 		float: 'left',

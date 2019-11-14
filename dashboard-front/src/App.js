@@ -3,7 +3,6 @@ import { CookiesProvider } from 'react-cookie';
 import { Router, Route, Switch } from 'react-router-dom';
 
 import history from './history';
-import Dashboard from './dashboard';
 import Authentification from './authentification';
 
 const RouteComponent = ({
@@ -27,13 +26,8 @@ export default () => (
           <RouteComponent
             exact
             path="/"
-            component={Dashboard}
+            component={Authentification}
           />
-        <RouteComponent
-          exact
-          path="/authentification"
-          component={Authentification}
-        />
         </Switch>
       </Router>
   </CookiesProvider>

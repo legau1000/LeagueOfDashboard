@@ -32,4 +32,15 @@ export default () => ({
 		boxShadow: '0 0 20px #fff',
 		boxShadow: '0 0 40px #0ff',
 	},
+	masteries: {
+		padding: '1rem',
+		margin: '1rem',
+		border: '1px solid #fff',
+		color: "#fff",
+		borderRadius: '50px',
+		boxShadow: '0 0 5px #ecef34',
+		boxShadow: '0 0 10px #ecef34',
+		boxShadow: '0 0 20px #ecef34',
+		boxShadow: '0 0 40px #ecef34',
+	},
 });
