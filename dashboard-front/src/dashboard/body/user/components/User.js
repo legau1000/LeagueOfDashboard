@@ -46,7 +46,7 @@ class User extends React.Component {
 		const { error, isLoaded, User } = this.state;
 		const { classes, pseudo  } = this.props;
 
-		console.log(pseudo);
+		console.log(User);
 
 		if (error) {
 			return <div>Erreur : {error.message}</div>;
