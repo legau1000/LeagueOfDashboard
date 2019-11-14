@@ -82,6 +82,17 @@ namespace dashboardAPI.Controllers
             return ("NOTHING");
         }
 
+        private string GetPictureChampion(int ID)
+        {
+            foreach(KeyValuePair<string, DataChampionModel> entry in _ListChampion.data)
+            {
+                if (ID == entry.Value.key) {
+                    return (entry.Value.image.full);
+                }
+            }
+            return ("NOTHING");
+        }
+
         [HttpGet("details/{summonerName}")]
         public async Task<ActionResult<List<MasteriesClassDetail>>> GetDetailsMasteriesAsync(string summonerName)
         {
@@ -100,7 +111,7 @@ namespace dashboardAPI.Controllers
                 result.ForEach(delegate(MasteriesClassDetail tmp)
                 {
                     tmp.name = GetNameChampion(tmp.championId);
-                    tmp.linkPicture = "http://ddragon.leagueoflegends.com/cdn/9.22.1/img/champion/" + tmp.name + ".png";
+                    tmp.linkPicture = "http://ddragon.leagueoflegends.com/cdn/9.22.1/img/champion/" + GetPictureChampion(tmp.championId);
 
                 });
                 return (result);
