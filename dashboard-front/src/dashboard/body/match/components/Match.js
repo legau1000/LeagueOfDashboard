@@ -99,7 +99,7 @@ class Match extends React.Component {
 						isLoaded: true,
 						matchInfos: result
 					});
-					console.log(this.state.matchInfos.teams);
+					console.log(this.state.matchId.matches[0].timestamp);
 				},
 				(error) => {
 					this.setState({
@@ -112,7 +112,7 @@ class Match extends React.Component {
 	};
 
 	render() {
-		const { error, isLoaded, expanded, matchInfos } = this.state;
+		const { error, isLoaded, expanded, matchInfos, matchId } = this.state;
 		const { classes } = this.props;
 
 
@@ -138,6 +138,7 @@ class Match extends React.Component {
 						<Collapse in={expanded} timeout="auto" unmountOnExit>
 							<CardContent>
 								<div>
+									<Typography className={classes.title1}>{this.timeConverter(matchId.matches[0].timestamp)}</Typography>
 									<Typography className={classes.title1}>{matchInfos.gameMode}</Typography>
 									<Grid container>									
 										<Grid item xs={12} className={classes.grid1}>
@@ -147,7 +148,7 @@ class Match extends React.Component {
 													<TableRow key="oui">
              										 <TableCell component="th" scope="row">
 															<img className={classes.image} src={matchInfos.participants ? matchInfos.participants[0].championIdPicture : "oui"} alt={"perso1"} />
-															<Typography className={classes.text}>{matchInfos.participants ? matchInfos.participants[0].championName : "oui"}</Typography>
+															<Typography className={classes.text}>{matchInfos.participants ? matchInfos.participants[0].championName : "oui"} - {matchInfos.participants ? matchInfos.participants[0].name : "oui"}</Typography>
 													</TableCell>
 														<TableCell align="right">
 															<Typography className={classes.text}>{matchInfos.participants ? matchInfos.participants[0].timeline.lane : "oui"}</Typography>
@@ -169,7 +170,7 @@ class Match extends React.Component {
 													<TableRow key="oui">
 														<TableCell component="th" scope="row">
 															<img className={classes.image} src={matchInfos.participants ? matchInfos.participants[1].championIdPicture : "oui"} alt={"perso1"} />
-															<Typography className={classes.text}>{matchInfos.participants ? matchInfos.participants[1].championName : "oui"}</Typography>
+															<Typography className={classes.text}>{matchInfos.participants ? matchInfos.participants[1].championName : "oui"}  - {matchInfos.participants ? matchInfos.participants[1].name : "oui"}</Typography>
 														</TableCell>
 
 														<TableCell align="right">
@@ -192,7 +193,7 @@ class Match extends React.Component {
 													<TableRow key="oui">
 														<TableCell component="th" scope="row">
 															<img className={classes.image} src={matchInfos.participants ? matchInfos.participants[2].championIdPicture : "oui"} alt={"perso1"} />
-															<Typography className={classes.text}>{matchInfos.participants ? matchInfos.participants[2].championName : "oui"}</Typography>
+															<Typography className={classes.text}>{matchInfos.participants ? matchInfos.participants[2].championName : "oui"}  - {matchInfos.participants ? matchInfos.participants[2].name : "oui"}</Typography>
 														</TableCell>
 														<TableCell align="right">
 															<Typography className={classes.text}>{matchInfos.participants ? matchInfos.participants[2].timeline.lane : "oui"}</Typography>
@@ -214,7 +215,7 @@ class Match extends React.Component {
 													<TableRow key="oui">
 														<TableCell component="th" scope="row">
 															<img className={classes.image} src={matchInfos.participants ? matchInfos.participants[3].championIdPicture : "oui"} alt={"perso1"} />
-															<Typography className={classes.text}>{matchInfos.participants ? matchInfos.participants[3].championName : "oui"}</Typography>
+															<Typography className={classes.text}>{matchInfos.participants ? matchInfos.participants[3].championName : "oui"} - {matchInfos.participants ? matchInfos.participants[3].name : "oui"}</Typography>
 														</TableCell>
 														<TableCell align="right">
 															<Typography className={classes.text}>{matchInfos.participants ? matchInfos.participants[3].timeline.lane : "oui"}</Typography>
@@ -236,7 +237,7 @@ class Match extends React.Component {
 													<TableRow key="oui">
 														<TableCell component="th" scope="row">
 															<img className={classes.image} src={matchInfos.participants ? matchInfos.participants[4].championIdPicture : "oui"} alt={"perso1"} />
-															<Typography className={classes.text}>{matchInfos.participants ? matchInfos.participants[4].championName : "oui"}</Typography>
+															<Typography className={classes.text}>{matchInfos.participants ? matchInfos.participants[4].championName : "oui"} - {matchInfos.participants ? matchInfos.participants[4].name : "oui"}</Typography>
 														</TableCell>
 														<TableCell align="right">
 															<Typography className={classes.text}>{matchInfos.participants ? matchInfos.participants[4].timeline.lane : "oui"}</Typography>
@@ -259,11 +260,122 @@ class Match extends React.Component {
 											</Table>
 									</Grid>
 									<Grid item xs={12}>
-											<Typography className={classes.text}>{matchInfos.participants ? matchInfos.participants[5].championName : "oui"}</Typography>
-											<Typography className={classes.text}>{matchInfos.participants ? matchInfos.participants[6].championName : "oui"}</Typography>
-											<Typography className={classes.text}>{matchInfos.participants ? matchInfos.participants[7].championName : "oui"}</Typography>
-											<Typography className={classes.text}>{matchInfos.participants ? matchInfos.participants[8].championName : "oui"}</Typography>
-											<Typography className={classes.text}>{matchInfos.participants ? matchInfos.participants[9].championName : "oui"}</Typography>									
+											<Typography className={matchInfos.teams ? matchInfos.teams[1].win == "Win" ? classes.teamRed : classes.teamBlue : "oui" }>{matchInfos.teams ? matchInfos.teams[1].win == "Win" ? "Win" : "Loose" : "oui"}</Typography>
+											<Table className={classes.table} aria-label="simple table">
+												<TableBody>
+													<TableRow key="oui">
+														<TableCell component="th" scope="row">
+															<img className={classes.image} src={matchInfos.participants ? matchInfos.participants[5].championIdPicture : "oui"} alt={"perso1"} />
+															<Typography className={classes.text}>{matchInfos.participants ? matchInfos.participants[5].championName : "oui"} - {matchInfos.participants ? matchInfos.participants[5].name : "oui"}</Typography>
+														</TableCell>
+														<TableCell align="right">
+															<Typography className={classes.text}>{matchInfos.participants ? matchInfos.participants[5].timeline.lane : "oui"}</Typography>
+															<Typography className={classes.text}>{matchInfos.participants ? matchInfos.participants[5].timeline.role : "oui"}</Typography>
+														</TableCell>
+														<TableCell align="right">
+															<Typography className={classes.text}>{matchInfos.participants ? matchInfos.participants[5].stats.kills : "oui"} / {matchInfos.participants ? matchInfos.participants[5].stats.deaths : "oui"} / {matchInfos.participants ? matchInfos.participants[5].stats.assists : "oui"}</Typography>
+														</TableCell>
+														<TableCell align="right"><img className={classes.image} src={matchInfos.participants ? matchInfos.participants[5].stats.item0Picture : "oui"} alt={"perso1"} /></TableCell>
+														<TableCell align="right"><img className={classes.image} src={matchInfos.participants ? matchInfos.participants[5].stats.item1Picture : "oui"} alt={"perso1"} /></TableCell>
+														<TableCell align="right"><img className={classes.image} src={matchInfos.participants ? matchInfos.participants[5].stats.item2Picture : "oui"} alt={"perso1"} /></TableCell>
+														<TableCell align="right"><img className={classes.image} src={matchInfos.participants ? matchInfos.participants[5].stats.item3Picture : "oui"} alt={"perso1"} /></TableCell>
+														<TableCell align="right"><img className={classes.image} src={matchInfos.participants ? matchInfos.participants[5].stats.item4Picture : "oui"} alt={"perso1"} /></TableCell>
+														<TableCell align="right"><img className={classes.image} src={matchInfos.participants ? matchInfos.participants[5].stats.item5Picture : "oui"} alt={"perso1"} /></TableCell>
+														<TableCell align="right"><img className={classes.image} src={matchInfos.participants ? matchInfos.participants[5].stats.item6Picture : "oui"} alt={"perso1"} /></TableCell>
+														<TableCell align="right">y</TableCell>
+														<TableCell align="right">z</TableCell>
+													</TableRow>
+													<TableRow key="oui">
+														<TableCell component="th" scope="row">
+															<img className={classes.image} src={matchInfos.participants ? matchInfos.participants[6].championIdPicture : "oui"} alt={"perso1"} />
+															<Typography className={classes.text}>{matchInfos.participants ? matchInfos.participants[6].championName : "oui"} - {matchInfos.participants ? matchInfos.participants[6].name : "oui"}</Typography>
+														</TableCell>
+
+														<TableCell align="right">
+															<Typography className={classes.text}>{matchInfos.participants ? matchInfos.participants[6].timeline.lane : "oui"}</Typography>
+															<Typography className={classes.text}>{matchInfos.participants ? matchInfos.participants[6].timeline.role : "oui"}</Typography>
+														</TableCell>
+														<TableCell align="right">
+															<Typography className={classes.text}>{matchInfos.participants ? matchInfos.participants[6].stats.kills : "oui"} / {matchInfos.participants ? matchInfos.participants[6].stats.deaths : "oui"} / {matchInfos.participants ? matchInfos.participants[6].stats.assists : "oui"}</Typography>
+														</TableCell>
+														<TableCell align="right"><img className={classes.image} src={matchInfos.participants ? matchInfos.participants[6].stats.item0Picture : "oui"} alt={"perso1"} /></TableCell>
+														<TableCell align="right"><img className={classes.image} src={matchInfos.participants ? matchInfos.participants[6].stats.item1Picture : "oui"} alt={"perso1"} /></TableCell>
+														<TableCell align="right"><img className={classes.image} src={matchInfos.participants ? matchInfos.participants[6].stats.item2Picture : "oui"} alt={"perso1"} /></TableCell>
+														<TableCell align="right"><img className={classes.image} src={matchInfos.participants ? matchInfos.participants[6].stats.item3Picture : "oui"} alt={"perso1"} /></TableCell>
+														<TableCell align="right"><img className={classes.image} src={matchInfos.participants ? matchInfos.participants[6].stats.item4Picture : "oui"} alt={"perso1"} /></TableCell>
+														<TableCell align="right"><img className={classes.image} src={matchInfos.participants ? matchInfos.participants[6].stats.item5Picture : "oui"} alt={"perso1"} /></TableCell>
+														<TableCell align="right"><img className={classes.image} src={matchInfos.participants ? matchInfos.participants[6].stats.item6Picture : "oui"} alt={"perso1"} /></TableCell>
+														<TableCell align="right">y</TableCell>
+														<TableCell align="right">z</TableCell>
+													</TableRow>
+													<TableRow key="oui">
+														<TableCell component="th" scope="row">
+															<img className={classes.image} src={matchInfos.participants ? matchInfos.participants[7].championIdPicture : "oui"} alt={"perso1"} />
+															<Typography className={classes.text}>{matchInfos.participants ? matchInfos.participants[7].championName : "oui"} - {matchInfos.participants ? matchInfos.participants[7].name : "oui"}</Typography>
+														</TableCell>
+														<TableCell align="right">
+															<Typography className={classes.text}>{matchInfos.participants ? matchInfos.participants[7].timeline.lane : "oui"}</Typography>
+															<Typography className={classes.text}>{matchInfos.participants ? matchInfos.participants[7].timeline.role : "oui"}</Typography>
+														</TableCell>
+														<TableCell align="right">
+															<Typography className={classes.text}>{matchInfos.participants ? matchInfos.participants[7].stats.kills : "oui"} / {matchInfos.participants ? matchInfos.participants[7].stats.deaths : "oui"} / {matchInfos.participants ? matchInfos.participants[7].stats.assists : "oui"}</Typography>
+														</TableCell>
+														<TableCell align="right"><img className={classes.image} src={matchInfos.participants ? matchInfos.participants[7].stats.item0Picture : "oui"} alt={"perso1"} /></TableCell>
+														<TableCell align="right"><img className={classes.image} src={matchInfos.participants ? matchInfos.participants[7].stats.item1Picture : "oui"} alt={"perso1"} /></TableCell>
+														<TableCell align="right"><img className={classes.image} src={matchInfos.participants ? matchInfos.participants[7].stats.item2Picture : "oui"} alt={"perso1"} /></TableCell>
+														<TableCell align="right"><img className={classes.image} src={matchInfos.participants ? matchInfos.participants[7].stats.item3Picture : "oui"} alt={"perso1"} /></TableCell>
+														<TableCell align="right"><img className={classes.image} src={matchInfos.participants ? matchInfos.participants[7].stats.item4Picture : "oui"} alt={"perso1"} /></TableCell>
+														<TableCell align="right"><img className={classes.image} src={matchInfos.participants ? matchInfos.participants[7].stats.item5Picture : "oui"} alt={"perso1"} /></TableCell>
+														<TableCell align="right"><img className={classes.image} src={matchInfos.participants ? matchInfos.participants[7].stats.item6Picture : "oui"} alt={"perso1"} /></TableCell>
+														<TableCell align="right">y</TableCell>
+														<TableCell align="right">z</TableCell>
+													</TableRow>
+													<TableRow key="oui">
+														<TableCell component="th" scope="row">
+															<img className={classes.image} src={matchInfos.participants ? matchInfos.participants[8].championIdPicture : "oui"} alt={"perso1"} />
+															<Typography className={classes.text}>{matchInfos.participants ? matchInfos.participants[8].championName : "oui"} - {matchInfos.participants ? matchInfos.participants[8].name : "oui"}</Typography>
+														</TableCell>
+														<TableCell align="right">
+															<Typography className={classes.text}>{matchInfos.participants ? matchInfos.participants[8].timeline.lane : "oui"}</Typography>
+															<Typography className={classes.text}>{matchInfos.participants ? matchInfos.participants[8].timeline.role : "oui"}</Typography>
+														</TableCell>
+														<TableCell align="right">
+															<Typography className={classes.text}>{matchInfos.participants ? matchInfos.participants[8].stats.kills : "oui"} / {matchInfos.participants ? matchInfos.participants[8].stats.deaths : "oui"} / {matchInfos.participants ? matchInfos.participants[8].stats.assists : "oui"}</Typography>
+														</TableCell>
+														<TableCell align="right"><img className={classes.image} src={matchInfos.participants ? matchInfos.participants[8].stats.item0Picture : "oui"} alt={"perso1"} /></TableCell>
+														<TableCell align="right"><img className={classes.image} src={matchInfos.participants ? matchInfos.participants[8].stats.item1Picture : "oui"} alt={"perso1"} /></TableCell>
+														<TableCell align="right"><img className={classes.image} src={matchInfos.participants ? matchInfos.participants[8].stats.item2Picture : "oui"} alt={"perso1"} /></TableCell>
+														<TableCell align="right"><img className={classes.image} src={matchInfos.participants ? matchInfos.participants[8].stats.item3Picture : "oui"} alt={"perso1"} /></TableCell>
+														<TableCell align="right"><img className={classes.image} src={matchInfos.participants ? matchInfos.participants[8].stats.item4Picture : "oui"} alt={"perso1"} /></TableCell>
+														<TableCell align="right"><img className={classes.image} src={matchInfos.participants ? matchInfos.participants[8].stats.item5Picture : "oui"} alt={"perso1"} /></TableCell>
+														<TableCell align="right"><img className={classes.image} src={matchInfos.participants ? matchInfos.participants[8].stats.item6Picture : "oui"} alt={"perso1"} /></TableCell>
+														<TableCell align="right">y</TableCell>
+														<TableCell align="right">z</TableCell>
+													</TableRow>
+													<TableRow key="oui">
+														<TableCell component="th" scope="row">
+															<img className={classes.image} src={matchInfos.participants ? matchInfos.participants[9].championIdPicture : "oui"} alt={"perso1"} />
+															<Typography className={classes.text}>{matchInfos.participants ? matchInfos.participants[9].championName : "oui"} - {matchInfos.participants ? matchInfos.participants[9].name : "oui"}</Typography>
+														</TableCell>
+														<TableCell align="right">
+															<Typography className={classes.text}>{matchInfos.participants ? matchInfos.participants[9].timeline.lane : "oui"}</Typography>
+															<Typography className={classes.text}>{matchInfos.participants ? matchInfos.participants[9].timeline.role : "oui"}</Typography>
+														</TableCell>
+														<TableCell align="right">
+															<Typography className={classes.text}>{matchInfos.participants ? matchInfos.participants[9].stats.kills : "oui"} / {matchInfos.participants ? matchInfos.participants[9].stats.deaths : "oui"} / {matchInfos.participants ? matchInfos.participants[9].stats.assists : "oui"}</Typography>
+														</TableCell>
+														<TableCell align="right"><img className={classes.image} src={matchInfos.participants ? matchInfos.participants[9].stats.item0Picture : "oui"} alt={"perso1"} /></TableCell>
+														<TableCell align="right"><img className={classes.image} src={matchInfos.participants ? matchInfos.participants[9].stats.item1Picture : "oui"} alt={"perso1"} /></TableCell>
+														<TableCell align="right"><img className={classes.image} src={matchInfos.participants ? matchInfos.participants[9].stats.item2Picture : "oui"} alt={"perso1"} /></TableCell>
+														<TableCell align="right"><img className={classes.image} src={matchInfos.participants ? matchInfos.participants[9].stats.item3Picture : "oui"} alt={"perso1"} /></TableCell>
+														<TableCell align="right"><img className={classes.image} src={matchInfos.participants ? matchInfos.participants[9].stats.item4Picture : "oui"} alt={"perso1"} /></TableCell>
+														<TableCell align="right"><img className={classes.image} src={matchInfos.participants ? matchInfos.participants[9].stats.item5Picture : "oui"} alt={"perso1"} /></TableCell>
+														<TableCell align="right"><img className={classes.image} src={matchInfos.participants ? matchInfos.participants[9].stats.item6Picture : "oui"} alt={"perso1"} /></TableCell>
+														<TableCell align="right">y</TableCell>
+														<TableCell align="right">z</TableCell>
+													</TableRow>
+												</TableBody>
+											</Table>
 											</Grid>
 									</Grid>
 								</div>

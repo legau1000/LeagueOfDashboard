@@ -21,7 +21,7 @@ class User extends React.Component {
 	}
 
 	componentDidMount() {
-		const url = `https://0.0.0.0:5001/lol/account/${this.props.pseudo}`;
+		const url = `https://0.0.0.0:5001/lol/account/charlieangel`;
 
 		fetch(url
 		)
