@@ -6,7 +6,7 @@ namespace dashboardAPI.Models
     {
         public string lane { get; set; }
         public long gameId { get; set; }
-        public string champion { get; set; }
+        public int champion { get; set; }
         public string namechampion { get; set; }
         public string picturechampion { get; set; }
         public string platformId { get; set; }

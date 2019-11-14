@@ -21,7 +21,7 @@ namespace dashboardAPI.Controllers
         private readonly ILogger<HistoryController> _logger;
         private HistoryClient _HistoryClient;
         private AccountClient _AccountClient;
-        private ChampionClient _ChampionClient;
+        private DragonClient _DragonClient;
         //private ListAllChampModel _ListChampion;
         private ListAllChampModel _ListChampion;
 
@@ -34,7 +34,7 @@ namespace dashboardAPI.Controllers
         {
             _HistoryClient = RestService.For<HistoryClient>("https://euw1.api.riotgames.com/lol/match/v4/");
             _AccountClient = RestService.For<AccountClient>("https://euw1.api.riotgames.com/lol/summoner/v4/summoners/by-name/");
-            _ChampionClient = RestService.For<ChampionClient>("http://ddragon.leagueoflegends.com/cdn/9.22.1/data/en_US");
+            _DragonClient = RestService.For<DragonClient>("http://ddragon.leagueoflegends.com/cdn/9.22.1/data/en_US");
             _logger = logger;
             _token = "RGAPI-d781b69e-f8f9-4689-b59a-d700c3f62a13";
         }
@@ -50,7 +50,7 @@ namespace dashboardAPI.Controllers
 
             try {
                 if (_ListChampion == null) {
-                    var GetValueAllChamp = await _ChampionClient.GetAllChampAsync();
+                    var GetValueAllChamp = await _DragonClient.GetAllChampAsync();
                     _ListChampion = JsonConvert.DeserializeObject<ListAllChampModel>(GetValueAllChamp);
                 }
                 var Account = await _AccountClient.GetAccountAsync(_token, summonerName);
@@ -72,7 +72,7 @@ namespace dashboardAPI.Controllers
 
             try {
                 if (_ListChampion == null) {
-                    var GetValueAllChamp = await _ChampionClient.GetAllChampAsync();
+                    var GetValueAllChamp = await _DragonClient.GetAllChampAsync();
                     _ListChampion = JsonConvert.DeserializeObject<ListAllChampModel>(GetValueAllChamp);
                 }
                 var Account = await _AccountClient.GetAccountAsync(_token, summonerName);
@@ -94,16 +94,27 @@ namespace dashboardAPI.Controllers
             {
                 name = GetNameChampion(item.champion);
                 item.namechampion = name;
-                item.picturechampion = "http://ddragon.leagueoflegends.com/cdn/9.22.1/img/champion/" + name + ".png";
+                item.picturechampion = "http://ddragon.leagueoflegends.com/cdn/9.22.1/img/champion/" + GetPictureChampion(item.champion);
             }
             return (Result);
         }
-        private string GetNameChampion(string ID)
+        private string GetNameChampion(int ID)
         {
             foreach(KeyValuePair<string, DataChampionModel> entry in _ListChampion.data)
             {
                 if (ID == entry.Value.key) {
                     return (entry.Value.name);
+                }
+            }
+            return ("NOTHING");
+        }
+
+        private string GetPictureChampion(int ID)
+        {
+            foreach(KeyValuePair<string, DataChampionModel> entry in _ListChampion.data)
+            {
+                if (ID == entry.Value.key) {
+                    return (entry.Value.image.full);
                 }
             }
             return ("NOTHING");

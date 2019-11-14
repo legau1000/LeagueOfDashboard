@@ -6,10 +6,10 @@ namespace dashboardAPI.Models
     {
         public string name { get; set; }
         public string linkPicture { get; set; }
-        public string id { get; set; }
+        public int id { get; set; }
     }
     public class RotationModel
     {
-        public List<string> freeChampionIds { get; set; }
+        public List<int> freeChampionIds { get; set; }
     }
 }

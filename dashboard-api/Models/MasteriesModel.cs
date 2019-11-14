@@ -16,7 +16,7 @@ namespace dashboardAPI.Models
 
     public class MasteriesClassDetail
     {
-        public string championId { get; set; }
+        public int championId { get; set; }
         public string championLevel { get; set; }
         public string championPoints { get; set; }
         public string lastPlayTime { get; set; }

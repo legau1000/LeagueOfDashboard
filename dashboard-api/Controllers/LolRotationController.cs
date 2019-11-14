@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Http;
 using Refit;
 using System.Collections.Generic;
 using MySql.Data.MySqlClient;
+using System.Web;
 using dashboardAPI.Models;
 using dashboardAPI.Clients;
 
@@ -20,7 +21,7 @@ namespace dashboardAPI.Controllers
         #region MEMBERS
         private readonly ILogger<MasteryController> _logger;
         private RotationClient _RotationClient;
-        private ChampionClient _ChampionClient;
+        private DragonClient _DragonClient;
 
         private ListAllChampModel _ListChampion;
 
@@ -32,7 +33,7 @@ namespace dashboardAPI.Controllers
         public RotationController(ILogger<MasteryController> logger)
         {
             _RotationClient = RestService.For<RotationClient>("https://euw1.api.riotgames.com/lol/platform/v3/champion-rotations");
-            _ChampionClient = RestService.For<ChampionClient>("http://ddragon.leagueoflegends.com/cdn/9.22.1/data/en_US");
+            _DragonClient = RestService.For<DragonClient>("http://ddragon.leagueoflegends.com/cdn/9.22.1/data/en_US");
             _logger = logger;
             _token = "RGAPI-d781b69e-f8f9-4689-b59a-d700c3f62a13";
             InitClassMasteryControllerAsync();
@@ -40,14 +41,14 @@ namespace dashboardAPI.Controllers
 
         public async void InitClassMasteryControllerAsync()
         {
-            string GetDataAllChamp = await _ChampionClient.GetAllChampAsync();
+            string GetDataAllChamp = await _DragonClient.GetAllChampAsync();
             _ListChampion = JsonConvert.DeserializeObject<ListAllChampModel>(GetDataAllChamp);
         }
 
         #endregion CONSTRUCTOR
 
         #region ROUTES
-        private string GetNameChampion(string ID)
+        private string GetNameChampion(int ID)
         {
             foreach(KeyValuePair<string, DataChampionModel> entry in _ListChampion.data)
             {
@@ -58,7 +59,7 @@ namespace dashboardAPI.Controllers
             return ("NOTHING");
         }
 
-        private string GetPictureChampion(string ID)
+        private string GetPictureChampion(int ID)
         {
             foreach(KeyValuePair<string, DataChampionModel> entry in _ListChampion.data)
             {
@@ -70,13 +71,13 @@ namespace dashboardAPI.Controllers
         }
 
         [HttpGet("")]
-        public async Task<List<ChampRotationList>> GetRotationChampionsAsync()
+        public async Task<ActionResult<List<ChampRotationList>>> GetRotationChampionsAsync()
         {
             _logger.LogInformation("Trying to get Rotation Champion League Of Legend");
 
             try {
                 if (_ListChampion == null) {
-                    var GetValueAllChamp = await _ChampionClient.GetAllChampAsync();
+                    var GetValueAllChamp = await _DragonClient.GetAllChampAsync();
                     _ListChampion = JsonConvert.DeserializeObject<ListAllChampModel>(GetValueAllChamp);
                 }
                 var AllMasteriesUser = await _RotationClient.GetRotationChampionsAsync(_token);
@@ -96,7 +97,9 @@ namespace dashboardAPI.Controllers
                 return (tmpListRotation);
             } catch (Exception exception) {
                 _logger.LogInformation($"Echec to get Rotation Champion League Of Legend: {exception}");
-                return (null);
+                //var tmp = new OkObjectResult(null);
+                var tmp = new BadRequestObjectResult(null);
+                return (tmp);
             }
         }
         #endregion ROUTES

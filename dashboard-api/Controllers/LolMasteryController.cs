@@ -22,7 +22,7 @@ namespace dashboardAPI.Controllers
         private MasteryClient _MasteryClient;
         private AccountClient _AccountClient;
 
-        private ChampionClient _ChampionClient;
+        private DragonClient _DragonClient;
 
         private ListAllChampModel _ListChampion;
 
@@ -35,7 +35,7 @@ namespace dashboardAPI.Controllers
         {
             _MasteryClient = RestService.For<MasteryClient>("https://euw1.api.riotgames.com/lol/champion-mastery/v4/");
             _AccountClient = RestService.For<AccountClient>("https://euw1.api.riotgames.com/lol/summoner/v4/summoners/by-name/");
-            _ChampionClient = RestService.For<ChampionClient>("http://ddragon.leagueoflegends.com/cdn/9.3.1/data/en_US/");
+            _DragonClient = RestService.For<DragonClient>("http://ddragon.leagueoflegends.com/cdn/9.3.1/data/en_US/");
             _logger = logger;
             _token = "RGAPI-d781b69e-f8f9-4689-b59a-d700c3f62a13";
             InitClassMasteryControllerAsync();
@@ -43,7 +43,7 @@ namespace dashboardAPI.Controllers
 
         public async void InitClassMasteryControllerAsync()
         {
-            string GetDataAllChamp = await _ChampionClient.GetAllChampAsync();
+            string GetDataAllChamp = await _DragonClient.GetAllChampAsync();
             _ListChampion = JsonConvert.DeserializeObject<ListAllChampModel>(GetDataAllChamp);
         }
 
@@ -71,7 +71,7 @@ namespace dashboardAPI.Controllers
             }
         }
 
-        private string GetNameChampion(string ID)
+        private string GetNameChampion(int ID)
         {
             foreach(KeyValuePair<string, DataChampionModel> entry in _ListChampion.data)
             {
@@ -83,13 +83,13 @@ namespace dashboardAPI.Controllers
         }
 
         [HttpGet("details/{summonerName}")]
-        public async Task<List<MasteriesClassDetail>> GetDetailsMasteriesAsync(string summonerName)
+        public async Task<ActionResult<List<MasteriesClassDetail>>> GetDetailsMasteriesAsync(string summonerName)
         {
             _logger.LogInformation($"Trying to get masteries account League Of Legend by name: {summonerName}");
 
             try {
                 if (_ListChampion == null) {
-                    var GetValueAllChamp = await _ChampionClient.GetAllChampAsync();
+                    var GetValueAllChamp = await _DragonClient.GetAllChampAsync();
                     _ListChampion = JsonConvert.DeserializeObject<ListAllChampModel>(GetValueAllChamp);
                 }
                 var Account = await _AccountClient.GetAccountAsync(_token, summonerName);
@@ -106,7 +106,8 @@ namespace dashboardAPI.Controllers
                 return (result);
             } catch (Exception exception) {
                 _logger.LogInformation($"Echec to get account League Of Legend by name: {exception.Message}");
-                return (null);
+                var tmp = new BadRequestObjectResult(new MasteriesClassDetail());
+                return (tmp);
             }
         }
         #endregion ROUTES
