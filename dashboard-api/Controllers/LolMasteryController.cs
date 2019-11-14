@@ -19,7 +19,7 @@ namespace dashboardAPI.Controllers
     {
         #region MEMBERS
         private readonly ILogger<MasteryController> _logger;
-        private MasteryClient _MasteryClient;
+        private LolMasteryClient _MasteryClient;
         private AccountClient _AccountClient;
 
         private DragonClient _DragonClient;
@@ -33,7 +33,7 @@ namespace dashboardAPI.Controllers
         #region CONSTRUCTOR
         public MasteryController(ILogger<MasteryController> logger)
         {
-            _MasteryClient = RestService.For<MasteryClient>("https://euw1.api.riotgames.com/lol/champion-mastery/v4/");
+            _MasteryClient = RestService.For<LolMasteryClient>("https://euw1.api.riotgames.com/lol/champion-mastery/v4/");
             _AccountClient = RestService.For<AccountClient>("https://euw1.api.riotgames.com/lol/summoner/v4/summoners/by-name/");
             _DragonClient = RestService.For<DragonClient>("http://ddragon.leagueoflegends.com/cdn/9.3.1/data/en_US/");
             _logger = logger;

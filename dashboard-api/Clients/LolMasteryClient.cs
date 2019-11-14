@@ -4,13 +4,13 @@ using dashboardAPI.Models;
 
 namespace dashboardAPI.Clients
 {
-    public interface MasteryAccountClient
+    public interface LolMasteryAccountClient
     {
         [Get("/{summonerName}")]
         Task<AccountModel> GetUserAsync(string summonerName);
     }
 
-    public interface MasteryClient
+    public interface LolMasteryClient
     {
         [Get("/scores/by-summoner/{encryptedSummonerId}")]
         Task<string> GetMasteryAsync([Header("X-Riot-Token")] string authorization, string encryptedSummonerId);

@@ -19,7 +19,7 @@ namespace dashboardAPI.Controllers
     {
         #region MEMBERS
         private readonly ILogger<HistoryController> _logger;
-        private HistoryClient _HistoryClient;
+        private LolHistoryClient _HistoryClient;
         private AccountClient _AccountClient;
         private DragonClient _DragonClient;
         //private ListAllChampModel _ListChampion;
@@ -32,7 +32,7 @@ namespace dashboardAPI.Controllers
         #region CONSTRUCTOR
         public HistoryController(ILogger<HistoryController> logger)
         {
-            _HistoryClient = RestService.For<HistoryClient>("https://euw1.api.riotgames.com/lol/match/v4/");
+            _HistoryClient = RestService.For<LolHistoryClient>("https://euw1.api.riotgames.com/lol/match/v4/");
             _AccountClient = RestService.For<AccountClient>("https://euw1.api.riotgames.com/lol/summoner/v4/summoners/by-name/");
             _DragonClient = RestService.For<DragonClient>("http://ddragon.leagueoflegends.com/cdn/9.22.1/data/en_US");
             _logger = logger;

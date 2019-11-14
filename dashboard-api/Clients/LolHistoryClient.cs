@@ -4,7 +4,7 @@ using dashboardAPI.Models;
 
 namespace dashboardAPI.Clients
 {
-    public interface HistoryClient
+    public interface LolHistoryClient
     {
         [Get("/matchlists/by-account/{encryptedAccountId}")]
         Task<string> GetListHistoryAsync([Header("X-Riot-Token")] string authorization, string encryptedAccountId);

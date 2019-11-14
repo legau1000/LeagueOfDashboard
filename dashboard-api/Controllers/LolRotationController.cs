@@ -20,7 +20,7 @@ namespace dashboardAPI.Controllers
     {
         #region MEMBERS
         private readonly ILogger<MasteryController> _logger;
-        private RotationClient _RotationClient;
+        private LolRotationClient _RotationClient;
         private DragonClient _DragonClient;
 
         private ListAllChampModel _ListChampion;
@@ -32,7 +32,7 @@ namespace dashboardAPI.Controllers
         #region CONSTRUCTOR
         public RotationController(ILogger<MasteryController> logger)
         {
-            _RotationClient = RestService.For<RotationClient>("https://euw1.api.riotgames.com/lol/platform/v3/champion-rotations");
+            _RotationClient = RestService.For<LolRotationClient>("https://euw1.api.riotgames.com/lol/platform/v3/champion-rotations");
             _DragonClient = RestService.For<DragonClient>("http://ddragon.leagueoflegends.com/cdn/9.22.1/data/en_US");
             _logger = logger;
             _token = "RGAPI-d781b69e-f8f9-4689-b59a-d700c3f62a13";

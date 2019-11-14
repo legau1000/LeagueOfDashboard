@@ -14,12 +14,12 @@ using dashboardAPI.Clients;
 namespace dashboardAPI.Controllers
 {
     [ApiController]
-    [Route("/lol/game")]
+    [Route("/lol/games")]
     public class GameControllers
     {
         #region MEMBERS
         private readonly ILogger<GameControllers> _logger;
-        private GameClient _GameClient;
+        private LolGameClient _GameClient;
         private DragonClient _DragonClient;
         //private ListAllChampModel _ListChampion;
         private ListAllChampModel _ListChampion;
@@ -33,7 +33,7 @@ namespace dashboardAPI.Controllers
         #region CONSTRUCTOR
         public GameControllers(ILogger<GameControllers> logger)
         {
-            _GameClient = RestService.For<GameClient>("https://euw1.api.riotgames.com/lol/match/v4/matches/");
+            _GameClient = RestService.For<LolGameClient>("https://euw1.api.riotgames.com/lol/match/v4/matches/");
             _DragonClient = RestService.For<DragonClient>("http://ddragon.leagueoflegends.com/cdn/9.22.1/data/en_US");
             _logger = logger;
             _token = "RGAPI-d781b69e-f8f9-4689-b59a-d700c3f62a13";
@@ -79,13 +79,13 @@ namespace dashboardAPI.Controllers
                 item.championIdPicture = "http://ddragon.leagueoflegends.com/cdn/9.22.1/img/champion/" + GetPictureChampion(item.championId);
                 item.spell1IdPicture = "http://ddragon.leagueoflegends.com/cdn/9.22.1/img/spell/" + GetPictureSummoner(item.spell1Id);
                 item.spell2IdPicture = "http://ddragon.leagueoflegends.com/cdn/9.22.1/img/spell/" + GetPictureSummoner(item.spell2Id);
-                item.stats.item0Picture = "http://ddragon.leagueoflegends.com/cdn/9.22.1/img/champion/" + GetPictureItem(item.stats.item0);
-                item.stats.item1Picture = "http://ddragon.leagueoflegends.com/cdn/9.22.1/img/champion/" + GetPictureItem(item.stats.item1);
-                item.stats.item2Picture = "http://ddragon.leagueoflegends.com/cdn/9.22.1/img/champion/" + GetPictureItem(item.stats.item2);
-                item.stats.item3Picture = "http://ddragon.leagueoflegends.com/cdn/9.22.1/img/champion/" + GetPictureItem(item.stats.item3);
-                item.stats.item4Picture = "http://ddragon.leagueoflegends.com/cdn/9.22.1/img/champion/" + GetPictureItem(item.stats.item4);
-                item.stats.item5Picture = "http://ddragon.leagueoflegends.com/cdn/9.22.1/img/champion/" + GetPictureItem(item.stats.item5);
-                item.stats.item6Picture = "http://ddragon.leagueoflegends.com/cdn/9.22.1/img/champion/" + GetPictureItem(item.stats.item6);
+                item.stats.item0Picture = "http://ddragon.leagueoflegends.com/cdn/9.22.1/img/item/" + GetPictureItem(item.stats.item0);
+                item.stats.item1Picture = "http://ddragon.leagueoflegends.com/cdn/9.22.1/img/item/" + GetPictureItem(item.stats.item1);
+                item.stats.item2Picture = "http://ddragon.leagueoflegends.com/cdn/9.22.1/img/item/" + GetPictureItem(item.stats.item2);
+                item.stats.item3Picture = "http://ddragon.leagueoflegends.com/cdn/9.22.1/img/item/" + GetPictureItem(item.stats.item3);
+                item.stats.item4Picture = "http://ddragon.leagueoflegends.com/cdn/9.22.1/img/item/" + GetPictureItem(item.stats.item4);
+                item.stats.item5Picture = "http://ddragon.leagueoflegends.com/cdn/9.22.1/img/item/" + GetPictureItem(item.stats.item5);
+                item.stats.item6Picture = "http://ddragon.leagueoflegends.com/cdn/9.22.1/img/item/" + GetPictureItem(item.stats.item6);
             }
         }
 

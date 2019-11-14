@@ -4,7 +4,7 @@ using dashboardAPI.Models;
 
 namespace dashboardAPI.Clients
 {
-	public interface RotationClient
+	public interface LolRotationClient
 	{
 		[Get("")]
 		Task<string> GetRotationChampionsAsync([Header("X-Riot-Token")] string authorization);
