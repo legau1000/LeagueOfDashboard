@@ -27,7 +27,6 @@ services:
   
   dashboard-front:
     build: ./dashboard-front
-    command: "yarn start"
     ports:
     - "3000:3000"
     tty: true
