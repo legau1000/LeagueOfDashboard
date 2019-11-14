@@ -73,8 +73,12 @@ namespace dashboardAPI.Controllers
         }
         private void AnalyseParticipants(GameModel Result)
         {
+            int index = 0;
+
             foreach (var item in Result.participants)
             {
+                _logger.LogInformation($"lel: {Result.participantIdentities[index].player.summonerName}");
+                item.name = Result.participantIdentities[index].player.summonerName;
                 item.championName = GetNameChampion(item.championId);
                 item.championIdPicture = "http://ddragon.leagueoflegends.com/cdn/9.22.1/img/champion/" + GetPictureChampion(item.championId);
                 item.spell1IdPicture = "http://ddragon.leagueoflegends.com/cdn/9.22.1/img/spell/" + GetPictureSummoner(item.spell1Id);
@@ -86,6 +90,7 @@ namespace dashboardAPI.Controllers
                 item.stats.item4Picture = "http://ddragon.leagueoflegends.com/cdn/9.22.1/img/item/" + GetPictureItem(item.stats.item4);
                 item.stats.item5Picture = "http://ddragon.leagueoflegends.com/cdn/9.22.1/img/item/" + GetPictureItem(item.stats.item5);
                 item.stats.item6Picture = "http://ddragon.leagueoflegends.com/cdn/9.22.1/img/item/" + GetPictureItem(item.stats.item6);
+                index = index + 1;
             }
         }
 
@@ -113,7 +118,7 @@ namespace dashboardAPI.Controllers
                     return (entry.Value.name);
                 }
             }
-            return ("NOTHING");
+            return ("UNKNOW");
         }
 
         private string GetPictureChampion(int ID)
@@ -124,7 +129,7 @@ namespace dashboardAPI.Controllers
                     return (entry.Value.image.full);
                 }
             }
-            return ("NOTHING");
+            return ("UNKNOW");
         }
 
         private string GetPictureItem(int ID)
@@ -135,7 +140,7 @@ namespace dashboardAPI.Controllers
                     return (entry.Value.image.full);
                 }
             }
-            return ("NOTHING");
+            return ("979.png");
         }
         private string GetPictureSummoner(string ID)
         {
@@ -145,7 +150,7 @@ namespace dashboardAPI.Controllers
                     return (entry.Value.image.full);
                 }
             }
-            return ("NOTHING");
+            return ("UNKNOW");
         }
 
         #endregion ROUTES

@@ -46,6 +46,7 @@ namespace dashboardAPI.Models
     }
     public class ParticipantDto
     {
+        public string name { get; set; }
         public int participantId { get; set; }
         public int teamId { get; set; }
         public int championId { get; set; }
@@ -57,6 +58,21 @@ namespace dashboardAPI.Models
         public string spell2IdPicture { get; set; }
         public ParticipantStatsDto stats { get; set; }
         public ParticipantTimelineDto timeline { get; set; }
+    }
+
+    public class ParticipantIdentityDtoAccount
+    {
+        public string accountId { get; set; }
+        public string summonerId { get; set; }
+        public int profileIcon { get; set; }
+        public string summonerName { get; set; }
+    }
+
+    public class ParticipantIdentityDto
+    {
+        public int participantId { get; set; }
+        public ParticipantIdentityDtoAccount player { get; set; }
+
     }
     public class GameModel
     {
@@ -70,5 +86,6 @@ namespace dashboardAPI.Models
         public string gameType { get; set; }
         public List<TeamStatsDto> teams { get; set; }
         public List<ParticipantDto> participants { get; set; }
+        public List<ParticipantIdentityDto > participantIdentities { get; set; }
     }
 }
