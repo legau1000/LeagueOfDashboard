@@ -17,6 +17,10 @@ export default () => ({
 		textAlign: 'center',
 		borderRadius: '50%',
 	},
+	accountLogo:
+	{
+		color: 'white',
+	},
 	profileName: {
 		fontFamily: 'CormorantGaramond-Regular',
 		color: 'white',
@@ -30,10 +34,21 @@ export default () => ({
 		float: 'left',
 	},
 	div3: {
+		float: 'left',
+		position: 'relative',
+		top: '40px',
+		left: '40px',
+	},
+	div4: {
 		float: 'right',
 	},
 	button: {
 		marginRight: '1rem',
 		color: 'blue',
+	},
+	textField:
+	{
+			color: 'black',
+			background: 'white',
 	},
 });

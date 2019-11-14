@@ -1,6 +1,5 @@
 import React  from 'react';
 import PropTypes from 'prop-types';
-import LogoUser from '../../../images/yummi.jpg';
 
 import {
 	Typography
@@ -8,6 +7,10 @@ import {
 
 
 class User extends React.Component {
+	static propTypes = {
+		classes: PropTypes.object.isRequired,
+		pseudo: PropTypes.string.isRequired,
+	};
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -18,7 +21,7 @@ class User extends React.Component {
 	}
 
 	componentDidMount() {
-		const url = "https://0.0.0.0:5001/lol/account/legau1000";
+		const url = `https://0.0.0.0:5001/lol/account/${this.props.pseudo}`;
 
 		fetch(url
 		)
@@ -40,7 +43,11 @@ class User extends React.Component {
 	}
 
 	render() {
-		const { error, isLoaded, User, classes } = this.state;
+		const { error, isLoaded, User } = this.state;
+		const { classes, pseudo  } = this.props;
+
+		console.log(pseudo);
+
 		if (error) {
 			return <div>Erreur : {error.message}</div>;
 		} else if (!isLoaded) {

@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 
 import Body from '../body';
 import Header from '../header';
-import ListDashboard from'../list';
 
 import {
   Grid

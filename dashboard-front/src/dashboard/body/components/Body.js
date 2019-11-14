@@ -4,22 +4,28 @@ import PropTypes from 'prop-types';
 import Match from '../match';
 import User from '../user';
 import Rotation from '../rotation';
+import Masteries from '../masteries';
 
 import {
-	Grid, Hidden
+	Grid
 } from '@material-ui/core';
 
 
 const Body = ({ classes }) => (
 	<Grid container>
-		<Grid item xs={5} className={classes.match}>
-			<Match />
-		</Grid>
-		<Grid item xs={5} className={classes.user}>
+		<Grid item xs={4}></Grid>
+		<Grid item xs={4} className={classes.user}>
 			<User />
+		</Grid>
+		<Grid item xs={4}></Grid>
+		<Grid item xs={10} className={classes.match}>
+			<Match />
 		</Grid>
 		<Grid item xs={5} className={classes.rotation}>
 			<Rotation />
+		</Grid>
+		<Grid item xs={5} className={classes.masteries}>
+			<Masteries />
 		</Grid>
 	</Grid>
 );
