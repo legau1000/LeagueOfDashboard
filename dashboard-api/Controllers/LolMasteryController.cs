@@ -34,7 +34,7 @@ namespace dashboardAPI.Controllers
         public MasteryController(ILogger<MasteryController> logger)
         {
             _MasteryClient = RestService.For<LolMasteryClient>("https://euw1.api.riotgames.com/lol/champion-mastery/v4/");
-            _AccountClient = RestService.For<AccountClient>("https://euw1.api.riotgames.com/lol/summoner/v4/summoners/by-name/");
+            _AccountClient = RestService.For<AccountClient>("https://euw1.api.riotgames.com/lol/summoner/v4/summoners/");
             _DragonClient = RestService.For<DragonClient>("http://ddragon.leagueoflegends.com/cdn/9.3.1/data/en_US/");
             _logger = logger;
             _token = "RGAPI-d781b69e-f8f9-4689-b59a-d700c3f62a13";
@@ -57,7 +57,7 @@ namespace dashboardAPI.Controllers
             _logger.LogInformation($"Trying to get masteries account League Of Legend by name: {summonerName}");
 
             try {
-                var Account = await _AccountClient.GetAccountAsync(_token, summonerName);
+                var Account = await _AccountClient.GetAccountByNameAsync(_token, summonerName);
                 var ResAccount = JsonConvert.DeserializeObject<AccountModel>(Account);
                 var MasteriesUser = await _MasteryClient.GetMasteryAsync(_token, ResAccount.id);
                 var Result = new MasteriesModel();
@@ -103,7 +103,7 @@ namespace dashboardAPI.Controllers
                     var GetValueAllChamp = await _DragonClient.GetAllChampAsync();
                     _ListChampion = JsonConvert.DeserializeObject<ListAllChampModel>(GetValueAllChamp);
                 }
-                var Account = await _AccountClient.GetAccountAsync(_token, summonerName);
+                var Account = await _AccountClient.GetAccountByNameAsync(_token, summonerName);
                 var ResAccount = JsonConvert.DeserializeObject<AccountModel>(Account);
                 var AllMasteriesUser = await _MasteryClient.GetDetailsMasteryAsync(_token, ResAccount.id);
                 var result = JsonConvert.DeserializeObject<List<MasteriesClassDetail>>(AllMasteriesUser);

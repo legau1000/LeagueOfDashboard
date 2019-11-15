@@ -33,7 +33,7 @@ namespace dashboardAPI.Controllers
         public HistoryController(ILogger<HistoryController> logger)
         {
             _HistoryClient = RestService.For<LolHistoryClient>("https://euw1.api.riotgames.com/lol/match/v4/");
-            _AccountClient = RestService.For<AccountClient>("https://euw1.api.riotgames.com/lol/summoner/v4/summoners/by-name/");
+            _AccountClient = RestService.For<AccountClient>("https://euw1.api.riotgames.com/lol/summoner/v4/summoners/");
             _DragonClient = RestService.For<DragonClient>("http://ddragon.leagueoflegends.com/cdn/9.22.1/data/en_US");
             _logger = logger;
             _token = "RGAPI-d781b69e-f8f9-4689-b59a-d700c3f62a13";
@@ -53,7 +53,7 @@ namespace dashboardAPI.Controllers
                     var GetValueAllChamp = await _DragonClient.GetAllChampAsync();
                     _ListChampion = JsonConvert.DeserializeObject<ListAllChampModel>(GetValueAllChamp);
                 }
-                var Account = await _AccountClient.GetAccountAsync(_token, summonerName);
+                var Account = await _AccountClient.GetAccountByNameAsync(_token, summonerName);
                 var ResAccount = JsonConvert.DeserializeObject<AccountModel>(Account);
                 var GamesUser = await _HistoryClient.GetListHistoryAsync(_token, ResAccount.accountId);
                 var Result = JsonConvert.DeserializeObject<ListHistoryModel>(GamesUser);
@@ -75,7 +75,7 @@ namespace dashboardAPI.Controllers
                     var GetValueAllChamp = await _DragonClient.GetAllChampAsync();
                     _ListChampion = JsonConvert.DeserializeObject<ListAllChampModel>(GetValueAllChamp);
                 }
-                var Account = await _AccountClient.GetAccountAsync(_token, summonerName);
+                var Account = await _AccountClient.GetAccountByNameAsync(_token, summonerName);
                 var ResAccount = JsonConvert.DeserializeObject<AccountModel>(Account);
                 var GamesUser = await _HistoryClient.GetListHistoryByChampAsync(_token, ResAccount.accountId, endIndex);
                 var Result = JsonConvert.DeserializeObject<ListHistoryModel>(GamesUser);

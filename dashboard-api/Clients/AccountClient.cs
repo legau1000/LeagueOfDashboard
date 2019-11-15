@@ -6,7 +6,10 @@ namespace dashboardAPI.Clients
 {
     public interface AccountClient
     {
-        [Get("/{summonerName}")]
-        Task<string> GetAccountAsync([Header("X-Riot-Token")] string authorization, string summonerName);
+        [Get("/by-name/{summonerName}")]
+        Task<string> GetAccountByNameAsync([Header("X-Riot-Token")] string authorization, string summonerName);
+
+        [Get("/by-puuid/{encryptedPUUID}")]
+        Task<string> GetAccountByPuuidAsync([Header("X-Riot-Token")] string authorization, string encryptedPUUID);
     }
 }

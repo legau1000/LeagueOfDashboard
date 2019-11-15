@@ -77,7 +77,6 @@ namespace dashboardAPI.Controllers
 
             foreach (var item in Result.participants)
             {
-                _logger.LogInformation($"lel: {Result.participantIdentities[index].player.summonerName}");
                 item.name = Result.participantIdentities[index].player.summonerName;
                 item.championName = GetNameChampion(item.championId);
                 item.championIdPicture = "http://ddragon.leagueoflegends.com/cdn/9.22.1/img/champion/" + GetPictureChampion(item.championId);

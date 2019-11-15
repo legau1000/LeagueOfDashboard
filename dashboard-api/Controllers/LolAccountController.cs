@@ -26,7 +26,7 @@ namespace dashboardAPI.Controllers
         #region CONSTRUCTOR
         public AccountController(ILogger<AccountController> logger)
         {
-            _AccountClient = RestService.For<AccountClient>("https://euw1.api.riotgames.com/lol/summoner/v4/summoners/by-name/");
+            _AccountClient = RestService.For<AccountClient>("https://euw1.api.riotgames.com/lol/summoner/v4/summoners/");
             _logger = logger;
         }
 
@@ -40,7 +40,7 @@ namespace dashboardAPI.Controllers
             _logger.LogInformation($"Trying to get account League Of Legend by name: {summonerName}");
 
             try {
-                var UserData = await _AccountClient.GetAccountAsync("RGAPI-d781b69e-f8f9-4689-b59a-d700c3f62a13", summonerName);
+                var UserData = await _AccountClient.GetAccountByNameAsync("RGAPI-d781b69e-f8f9-4689-b59a-d700c3f62a13", summonerName);
                 var result = JsonConvert.DeserializeObject<AccountModel>(UserData);
                 result.status_code = "200";
                 result.profileIconId = "http://ddragon.leagueoflegends.com/cdn/9.21.1/img/profileicon/" + result.profileIconId + ".png";
