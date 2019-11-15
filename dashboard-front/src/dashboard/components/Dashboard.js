@@ -11,6 +11,7 @@ import {
 
 const Dashboard = ({ classes }) => (
   <Grid container>
+    <style>{'body { background-color: #020529; }'}</style>
     <Grid item xs={12} className={classes.dashboardHeader}>
       <Header />
     </Grid>

@@ -6,4 +6,4 @@ COPY package*.json ./
 
 EXPOSE 3000
 
-CMD [ "yarn", "start" ]
+CMD [ "npm", "install", "start" ]

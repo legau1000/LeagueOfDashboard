@@ -5,9 +5,8 @@ export default () => ({
   },
   dashboardBody: {
     padding: '1rem',
-    border: '3px solid black',
     backgroundColor: '#020529',
-    height: '100rem',
+    height: '100%',
   },
   dashboardList: {
     border: '3px solid black',
