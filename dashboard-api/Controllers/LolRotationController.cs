@@ -80,7 +80,7 @@ namespace dashboardAPI.Controllers
                 var result = JsonConvert.DeserializeObject<RotationModel>(AllMasteriesUser);
                 string name;
                 ChampRotationList tmpRotation = null;
-                List<ChampRotationList> tmpListRotation = new List<ChampRotationList>();;
+                List<ChampRotationList> tmpListRotation = new List<ChampRotationList>();
                 foreach(var IdChamp in result.freeChampionIds)
                 {
                     tmpRotation = new ChampRotationList();
