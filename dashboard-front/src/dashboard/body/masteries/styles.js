@@ -52,4 +52,10 @@ export default () => ({
 	div1: {
 		float: 'left',
 	},
+	logo: {
+		width: '2.5rem',
+		height: '2.5rem',
+		float: 'right',
+		marginTop: '-2.5rem',
+	},
 });

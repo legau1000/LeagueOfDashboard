@@ -28,4 +28,9 @@ export default () => ({
 	div2: {
 		float: 'left',
 	},
+	logo: {
+		width: '2.5rem',
+		height: '2.5rem',
+		float: 'right',
+	},
 });

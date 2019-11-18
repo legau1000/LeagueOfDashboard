@@ -19,8 +19,6 @@ export default function ListDashboard({classes}) {
 			newChecked.splice(currentIndex, 1);
 		}
 
-		console.log(value);
-		console.log(newChecked);
 		setChecked(newChecked);
 	};
 

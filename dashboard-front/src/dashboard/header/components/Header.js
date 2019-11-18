@@ -1,13 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import LogoRiot from '../../images/images.png'
-import AuthProvider from "../../../authentification/components/AuthProvider";
-
-import Button from '@material-ui/core/Button';
-import AccountCircle from '@material-ui/icons/AccountCircle';
+import AuthProvider from "../../../authentification/components/MicrosoftAuth/AuthProvider";
 
 import {
-	Grid, Typography,  TextField
+	Grid, Typography, Button
 } from '@material-ui/core';
 
 class Header extends React.Component {
@@ -21,7 +18,6 @@ class Header extends React.Component {
 			error: null,
 			isLoaded: false,
 			User: [],
-			pseudo: "",
 		};
 	}
 
@@ -47,12 +43,6 @@ class Header extends React.Component {
 			)
 	}
 
-	handleChange = event =>  {
-		this.setState({
-			pseudo: event.target.value,
-		});
-	};
-
 	render() {
 		const { error, isLoaded } = this.state;
 		const { classes } = this.props;
@@ -69,26 +59,6 @@ class Header extends React.Component {
 					</div>
 					<div className={classes.div2}>
 						<Typography className={classes.title}>RIFT</Typography>
-					</div>
-					<div className={classes.div3}>
-							<Grid container spacing={1} alignItems="flex-end" >
-								<Grid item>
-									<AccountCircle className={classes.accountLogo}/>
-								</Grid>
-								<Grid item>
-								<TextField
-									id="input-with-icon-grid"
-									 label="Enter your account"
-									onChange={this.handleChange}
-									InputProps={{
-										className: classes.textField,
-									}}
-								/>
-								<Button className={classes.button} onClick={this.handleChange}>
-									Recherche
-      							</Button>
-								</Grid>
-							</Grid>
 					</div>
 					<div className={classes.div4}>
 						<Typography className={classes.profileName}></Typography>

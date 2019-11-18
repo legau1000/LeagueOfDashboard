@@ -2,21 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import {
-	Typography, Grid, GridList, GridListTile, GridListTileBar
+	Typography, Grid, CardContent, Collapse, Table, TableBody, TableCell, TableRow,
 } from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
-
-import CardContent from '@material-ui/core/CardContent';
-import Collapse from '@material-ui/core/Collapse';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
-
+import LogoLol from '../../../images/logo_lol.png';
 
 
 class Match extends React.Component {
@@ -99,7 +90,6 @@ class Match extends React.Component {
 						isLoaded: true,
 						matchInfos: result
 					});
-					console.log(this.state.matchId.matches[0].timestamp);
 				},
 				(error) => {
 					this.setState({
@@ -135,6 +125,7 @@ class Match extends React.Component {
 					</div>
 					<div>
 						<Typography className={classes.title}>Votre dernier match</Typography>
+						<img src={LogoLol} className={classes.logo} alt="champion" />
 						<Collapse in={expanded} timeout="auto" unmountOnExit>
 							<CardContent>
 								<div>
@@ -142,7 +133,7 @@ class Match extends React.Component {
 									<Typography className={classes.title1}>{matchInfos.gameMode}</Typography>
 									<Grid container>									
 										<Grid item xs={12} className={classes.grid1}>
-											<Typography className={matchInfos.teams ? matchInfos.teams[0].win == "Win" ? classes.teamRed : classes.teamBlue : "oui"}>{matchInfos.teams ? matchInfos.teams[0].win == "Win" ? "Win" : "Loose" : "oui"}</Typography>
+											<Typography className={matchInfos.teams ? matchInfos.teams[0].win=== "Win" ? classes.teamRed : classes.teamBlue : "oui"}>{matchInfos.teams ? matchInfos.teams[0].win=== "Win" ? "Win" : "Loose" : "oui"}</Typography>
 											<Table className={classes.table} aria-label="simple table">
 												<TableBody>										
 													<TableRow key="oui">
@@ -165,7 +156,7 @@ class Match extends React.Component {
 														<TableCell align="right"><img className={classes.image} src={matchInfos.participants ? matchInfos.participants[0].stats.item5Picture : "oui"} alt={"perso1"} /></TableCell>
 														<TableCell align="right"><img className={classes.image} src={matchInfos.participants ? matchInfos.participants[0].stats.item6Picture : "oui"} alt={"perso1"} /></TableCell>
 													<TableCell align="right">y</TableCell>
-													<TableCell align="right">z</TableCell>		
+									 		
 													</TableRow>
 													<TableRow key="oui">
 														<TableCell component="th" scope="row">
@@ -187,8 +178,7 @@ class Match extends React.Component {
 														<TableCell align="right"><img className={classes.image} src={matchInfos.participants ? matchInfos.participants[1].stats.item4Picture : "oui"} alt={"perso1"} /></TableCell>
 														<TableCell align="right"><img className={classes.image} src={matchInfos.participants ? matchInfos.participants[1].stats.item5Picture : "oui"} alt={"perso1"} /></TableCell>
 														<TableCell align="right"><img className={classes.image} src={matchInfos.participants ? matchInfos.participants[1].stats.item6Picture : "oui"} alt={"perso1"} /></TableCell>
-														<TableCell align="right">y</TableCell>
-														<TableCell align="right">z</TableCell>
+										 
 													</TableRow>
 													<TableRow key="oui">
 														<TableCell component="th" scope="row">
@@ -209,8 +199,7 @@ class Match extends React.Component {
 														<TableCell align="right"><img className={classes.image} src={matchInfos.participants ? matchInfos.participants[2].stats.item4Picture : "oui"} alt={"perso1"} /></TableCell>
 														<TableCell align="right"><img className={classes.image} src={matchInfos.participants ? matchInfos.participants[2].stats.item5Picture : "oui"} alt={"perso1"} /></TableCell>
 														<TableCell align="right"><img className={classes.image} src={matchInfos.participants ? matchInfos.participants[2].stats.item6Picture : "oui"} alt={"perso1"} /></TableCell>
-														<TableCell align="right">y</TableCell>
-														<TableCell align="right">z</TableCell>
+										 
 													</TableRow>
 													<TableRow key="oui">
 														<TableCell component="th" scope="row">
@@ -231,8 +220,7 @@ class Match extends React.Component {
 														<TableCell align="right"><img className={classes.image} src={matchInfos.participants ? matchInfos.participants[3].stats.item4Picture : "oui"} alt={"perso1"} /></TableCell>
 														<TableCell align="right"><img className={classes.image} src={matchInfos.participants ? matchInfos.participants[3].stats.item5Picture : "oui"} alt={"perso1"} /></TableCell>
 														<TableCell align="right"><img className={classes.image} src={matchInfos.participants ? matchInfos.participants[3].stats.item6Picture : "oui"} alt={"perso1"} /></TableCell>
-														<TableCell align="right">y</TableCell>
-														<TableCell align="right">z</TableCell>
+										 
 													</TableRow>
 													<TableRow key="oui">
 														<TableCell component="th" scope="row">
@@ -253,14 +241,13 @@ class Match extends React.Component {
 														<TableCell align="right"><img className={classes.image} src={matchInfos.participants ? matchInfos.participants[4].stats.item4Picture : "oui"} alt={"perso1"} /></TableCell>
 														<TableCell align="right"><img className={classes.image} src={matchInfos.participants ? matchInfos.participants[4].stats.item5Picture : "oui"} alt={"perso1"} /></TableCell>
 														<TableCell align="right"><img className={classes.image} src={matchInfos.participants ? matchInfos.participants[4].stats.item6Picture : "oui"} alt={"perso1"} /></TableCell>
-														<TableCell align="right">y</TableCell>
-														<TableCell align="right">z</TableCell>
+										 
 													</TableRow>									
 												</TableBody>
 											</Table>
 									</Grid>
 									<Grid item xs={12}>
-											<Typography className={matchInfos.teams ? matchInfos.teams[1].win == "Win" ? classes.teamRed : classes.teamBlue : "oui" }>{matchInfos.teams ? matchInfos.teams[1].win == "Win" ? "Win" : "Loose" : "oui"}</Typography>
+											<Typography className={matchInfos.teams ? matchInfos.teams[1].win === "Win" ? classes.teamRed : classes.teamBlue : "oui" }>{matchInfos.teams ? matchInfos.teams[1].win === "Win" ? "Win" : "Loose" : "oui"}</Typography>
 											<Table className={classes.table} aria-label="simple table">
 												<TableBody>
 													<TableRow key="oui">
@@ -282,8 +269,7 @@ class Match extends React.Component {
 														<TableCell align="right"><img className={classes.image} src={matchInfos.participants ? matchInfos.participants[5].stats.item4Picture : "oui"} alt={"perso1"} /></TableCell>
 														<TableCell align="right"><img className={classes.image} src={matchInfos.participants ? matchInfos.participants[5].stats.item5Picture : "oui"} alt={"perso1"} /></TableCell>
 														<TableCell align="right"><img className={classes.image} src={matchInfos.participants ? matchInfos.participants[5].stats.item6Picture : "oui"} alt={"perso1"} /></TableCell>
-														<TableCell align="right">y</TableCell>
-														<TableCell align="right">z</TableCell>
+										 
 													</TableRow>
 													<TableRow key="oui">
 														<TableCell component="th" scope="row">
@@ -305,8 +291,7 @@ class Match extends React.Component {
 														<TableCell align="right"><img className={classes.image} src={matchInfos.participants ? matchInfos.participants[6].stats.item4Picture : "oui"} alt={"perso1"} /></TableCell>
 														<TableCell align="right"><img className={classes.image} src={matchInfos.participants ? matchInfos.participants[6].stats.item5Picture : "oui"} alt={"perso1"} /></TableCell>
 														<TableCell align="right"><img className={classes.image} src={matchInfos.participants ? matchInfos.participants[6].stats.item6Picture : "oui"} alt={"perso1"} /></TableCell>
-														<TableCell align="right">y</TableCell>
-														<TableCell align="right">z</TableCell>
+										 
 													</TableRow>
 													<TableRow key="oui">
 														<TableCell component="th" scope="row">
@@ -327,8 +312,7 @@ class Match extends React.Component {
 														<TableCell align="right"><img className={classes.image} src={matchInfos.participants ? matchInfos.participants[7].stats.item4Picture : "oui"} alt={"perso1"} /></TableCell>
 														<TableCell align="right"><img className={classes.image} src={matchInfos.participants ? matchInfos.participants[7].stats.item5Picture : "oui"} alt={"perso1"} /></TableCell>
 														<TableCell align="right"><img className={classes.image} src={matchInfos.participants ? matchInfos.participants[7].stats.item6Picture : "oui"} alt={"perso1"} /></TableCell>
-														<TableCell align="right">y</TableCell>
-														<TableCell align="right">z</TableCell>
+										 
 													</TableRow>
 													<TableRow key="oui">
 														<TableCell component="th" scope="row">
@@ -349,8 +333,7 @@ class Match extends React.Component {
 														<TableCell align="right"><img className={classes.image} src={matchInfos.participants ? matchInfos.participants[8].stats.item4Picture : "oui"} alt={"perso1"} /></TableCell>
 														<TableCell align="right"><img className={classes.image} src={matchInfos.participants ? matchInfos.participants[8].stats.item5Picture : "oui"} alt={"perso1"} /></TableCell>
 														<TableCell align="right"><img className={classes.image} src={matchInfos.participants ? matchInfos.participants[8].stats.item6Picture : "oui"} alt={"perso1"} /></TableCell>
-														<TableCell align="right">y</TableCell>
-														<TableCell align="right">z</TableCell>
+										 
 													</TableRow>
 													<TableRow key="oui">
 														<TableCell component="th" scope="row">
@@ -371,8 +354,7 @@ class Match extends React.Component {
 														<TableCell align="right"><img className={classes.image} src={matchInfos.participants ? matchInfos.participants[9].stats.item4Picture : "oui"} alt={"perso1"} /></TableCell>
 														<TableCell align="right"><img className={classes.image} src={matchInfos.participants ? matchInfos.participants[9].stats.item5Picture : "oui"} alt={"perso1"} /></TableCell>
 														<TableCell align="right"><img className={classes.image} src={matchInfos.participants ? matchInfos.participants[9].stats.item6Picture : "oui"} alt={"perso1"} /></TableCell>
-														<TableCell align="right">y</TableCell>
-														<TableCell align="right">z</TableCell>
+										 
 													</TableRow>
 												</TableBody>
 											</Table>

@@ -5,6 +5,8 @@ import {
 	Typography
 } from '@material-ui/core';
 
+import LogoLol from '../../../images/logo_lol.png';
+
 
 class User extends React.Component {
 	static propTypes = {
@@ -21,7 +23,7 @@ class User extends React.Component {
 	}
 
 	componentDidMount() {
-		const url = `https://0.0.0.0:5001/lol/account/charlieangel`;
+		const url = `https://0.0.0.0:5001/lol/account/legau1000`;
 
 		fetch(url
 		)
@@ -44,9 +46,7 @@ class User extends React.Component {
 
 	render() {
 		const { error, isLoaded, User } = this.state;
-		const { classes, pseudo  } = this.props;
-
-		console.log(User);
+		const { classes } = this.props;
 
 		if (error) {
 			return <div>Erreur : {error.message}</div>;
@@ -64,6 +64,7 @@ class User extends React.Component {
 					<div className={classes.div2}>
 						<Typography className={classes.level}>{User.summonerLevel}</Typography>
 					</div>
+					<img src={LogoLol} className={classes.logo} alt="champion" />
 				</div>
 			);
 		}

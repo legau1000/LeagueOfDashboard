@@ -1,14 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
-import AuthProvider from "./AuthProvider";
-
-import logo from '../../dashboard/images/timo.png'
+import AuthProvider from "./MicrosoftAuth/AuthProvider";
 
 import { Grid, Typography } from '@material-ui/core';
 
 import Dashboard from "../../dashboard/";
-
-const Json = ({ data }) => <pre>{JSON.stringify(data, null, 4)}</pre>;
+import logo from '../../dashboard/images/timo.png'
 
 class Auth extends React.Component {
     static propTypes = {
@@ -31,7 +28,7 @@ class Auth extends React.Component {
                     {!this.props.account ? (
                         <>
                                 <Grid  className={classes.container}>
-                                <Typography className={classes.title}>Welcome to summoners rift</Typography>
+                                <Typography className={classes.title}>Bienvenue dans la faille de l'invocateur</Typography>
                                 <img src={logo} alt="logo" className={classes.logo} />
                                         <Grid item xs={4}>
                                         </Grid>

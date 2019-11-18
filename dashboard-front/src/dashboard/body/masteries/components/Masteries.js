@@ -2,13 +2,12 @@ import React  from 'react';
 import PropTypes from 'prop-types';
 
 import {
-	Typography, GridList, GridListTile, GridListTileBar
+	Typography, GridList, GridListTile, GridListTileBar, CardContent, Collapse
 } from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
-
-import CardContent from '@material-ui/core/CardContent';
-import Collapse from '@material-ui/core/Collapse';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+
+import LogoLol from '../../../images/logo_lol.png';
 
 
 
@@ -109,6 +108,7 @@ class Masteries extends React.Component {
 					</div>
 					<div>
 						<Typography className={classes.title}>Vos champions</Typography>
+						<img src={LogoLol} className={classes.logo} alt="champion" />
 						<Collapse in={expanded} timeout="auto" unmountOnExit>
 							<CardContent>
 								<div>
@@ -116,7 +116,7 @@ class Masteries extends React.Component {
 										<GridList cellHeight={200} cellWidth={200} cols={2} className={classes.gridList}>
 											{User.map(tile => (
 												<GridListTile key={tile.image} >
-													<img src={tile.linkPicture} className={classes.image} alt="image champion" />
+													<img src={tile.linkPicture} className={classes.image} alt="champion" />
 													<GridListTileBar
 														title={tile.name}
 														titlePosition="top"
