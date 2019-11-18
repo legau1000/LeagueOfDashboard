@@ -37,7 +37,7 @@ namespace dashboardAPI.Controllers
             _CDragonClient = RestService.For<CDragonClient>("http://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/");
             _AccountClient = RestService.For<AccountClient>("https://euw1.api.riotgames.com/lol/summoner/v4/summoners/");
             _logger = logger;
-            _token = "RGAPI-4ac29b23-365b-4a15-bc50-a0632a3b08eb";
+            _token = "RGAPI-5f9a434e-c60e-45f2-9556-00c19f31510b";
         }
 
         #endregion CONSTRUCTOR
