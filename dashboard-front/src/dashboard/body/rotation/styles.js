@@ -1,4 +1,10 @@
 export default () => ({
+	logo: {
+		width: '2.5rem',
+		height: '2.5rem',
+		float: 'right',
+		marginTop: '-2.5rem',
+	},
 	title: {
 		fontSize: '1.5rem',
 		textAlign: 'center',

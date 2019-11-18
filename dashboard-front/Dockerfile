@@ -1,9 +1,10 @@
-FROM node:12.13.0
-
-WORKDIR /dashboard-front
+FROM node:12.13.0-alpine
 
 COPY package*.json ./
 
-EXPOSE 3000
+COPY . .
 
-CMD [ "npm", "install", "start" ]
+EXPOSE 3000
+ 
+
+CMD [ "yarn", "start" ]
