@@ -3,11 +3,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using Microsoft.AspNetCore.Http;
 using Refit;
 using System.Collections.Generic;
-using MySql.Data.MySqlClient;
 using dashboardAPI.Models;
 using dashboardAPI.Clients;
 

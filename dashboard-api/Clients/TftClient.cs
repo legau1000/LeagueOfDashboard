@@ -1,7 +1,6 @@
 using Refit;
 using System.Threading.Tasks;
 using System.Collections.Generic;
-using dashboardAPI.Models;
 
 namespace dashboardAPI.Clients
 {

@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-
 namespace dashboardAPI.Models
 {
     public class TftCampanionsModel
