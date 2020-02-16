@@ -5935,21 +5935,19 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\legau1000\\Desktop\\DEV_dashboard_2019\\dashboard-api\\tmp.csproj",
+      "projectUniqueName": "C:\\Users\\legau1000\\Desktop\\Tek\\DEV_dashboard_2019\\dashboard-api\\tmp.csproj",
       "projectName": "tmp",
-      "projectPath": "C:\\Users\\legau1000\\Desktop\\DEV_dashboard_2019\\dashboard-api\\tmp.csproj",
+      "projectPath": "C:\\Users\\legau1000\\Desktop\\Tek\\DEV_dashboard_2019\\dashboard-api\\tmp.csproj",
       "packagesPath": "C:\\Users\\legau1000\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\legau1000\\Desktop\\DEV_dashboard_2019\\dashboard-api\\obj\\",
+      "outputPath": "C:\\Users\\legau1000\\Desktop\\Tek\\DEV_dashboard_2019\\dashboard-api\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\legau1000\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "C:\\Users\\legau1000\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp3.0"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -5993,6 +5991,24 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
+        "downloadDependencies": [
+          {
+            "name": "Microsoft.AspNetCore.App.Ref",
+            "version": "[3.0.1, 3.0.1]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Host.win-x64",
+            "version": "[3.0.2, 3.0.2]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Ref",
+            "version": "[3.0.0, 3.0.0]"
+          },
+          {
+            "name": "Microsoft.WindowsDesktop.App.Ref",
+            "version": "[3.0.0, 3.0.0]"
+          }
+        ],
         "frameworkReferences": {
           "Microsoft.AspNetCore.App": {
             "privateAssets": "none"
@@ -6001,7 +6017,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.101\\RuntimeIdentifierGraph.json"
       }
     }
   }
