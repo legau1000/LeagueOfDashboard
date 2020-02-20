@@ -5,6 +5,7 @@ Care, all API-KEYS are obsolete
 
 .net for ever <3.
 
-For test, you have to add your own token.
-The documentation is coming soon, but you can test /about.json for mor information.
+For test, you have to add your own token in appsettings.json.
+
+The documentation is coming soon, but you can test /about.json for more informations.
 
