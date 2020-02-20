@@ -2,16 +2,9 @@ using System.Collections.Generic;
 
 namespace dashboardAPI.Models
 {
-    public class StatusRequest
-    {
-        public string message { get; set; }
-        public string status_code { get; set; }
-    }
     public class MasteriesModel
     {
         public string level { get; set; }
-        public string message { get; set; }
-        public string status_code { get; set; }
     }
 
     public class MasteriesClassDetail
@@ -27,8 +20,6 @@ namespace dashboardAPI.Models
         public string summonerId { get; set; }
         public string name { get; set; }
         public string linkPicture { get; set; }
-        public string message { get; set; }
-        public string status_code { get; set; }
     }
     public class DetailsMasteriesModel
     {

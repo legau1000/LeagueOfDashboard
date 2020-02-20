@@ -7,31 +7,31 @@ using Refit;
 using System.Collections.Generic;
 using dashboardAPI.Models;
 using dashboardAPI.Clients;
+using Microsoft.Extensions.Configuration;
 
 namespace dashboardAPI.Controllers
 {
     [ApiController]
     [Route("/lol/rotation")]
-    public class RotationController
+    public class RotationController : ControllerBase
     {
         #region MEMBERS
+        private IConfiguration _settings;
         private readonly ILogger<MasteryController> _logger;
         private LolRotationClient _RotationClient;
         private DragonClient _DragonClient;
 
         private ListAllChampModel _ListChampion;
 
-        private string _token;
-
         #endregion MEMBERS
 
         #region CONSTRUCTOR
-        public RotationController(ILogger<MasteryController> logger)
+        public RotationController(ILogger<MasteryController> logger, IConfiguration iConfig)
         {
+            _settings = iConfig;
             _RotationClient = RestService.For<LolRotationClient>("https://euw1.api.riotgames.com/lol/platform/v3/champion-rotations");
             _DragonClient = RestService.For<DragonClient>("http://ddragon.leagueoflegends.com/cdn/9.22.1/data/en_US");
             _logger = logger;
-            _token = "RGAPI-d781b69e-f8f9-4689-b59a-d700c3f62a13";
             InitClassMasteryControllerAsync();
         }
 
@@ -43,7 +43,7 @@ namespace dashboardAPI.Controllers
 
         #endregion CONSTRUCTOR
 
-        #region ROUTES
+        #region METHODS
         private string GetNameChampion(int ID)
         {
             foreach(KeyValuePair<string, DataChampionModel> entry in _ListChampion.data)
@@ -66,6 +66,10 @@ namespace dashboardAPI.Controllers
             return ("NOTHING");
         }
 
+        #endregion METHODS
+
+        #region ROUTES
+
         [HttpGet("")]
         public async Task<ActionResult<List<ChampRotationList>>> GetRotationChampionsAsync()
         {
@@ -76,7 +80,8 @@ namespace dashboardAPI.Controllers
                     var GetValueAllChamp = await _DragonClient.GetAllChampAsync();
                     _ListChampion = JsonConvert.DeserializeObject<ListAllChampModel>(GetValueAllChamp);
                 }
-                var AllMasteriesUser = await _RotationClient.GetRotationChampionsAsync(_token);
+                var token = _settings.GetSection("lol").GetSection("token").Value;
+                var AllMasteriesUser = await _RotationClient.GetRotationChampionsAsync(token);
                 var result = JsonConvert.DeserializeObject<RotationModel>(AllMasteriesUser);
                 string name;
                 ChampRotationList tmpRotation = null;
@@ -91,11 +96,14 @@ namespace dashboardAPI.Controllers
                     tmpListRotation.Add(tmpRotation);
                 }
                 return (tmpListRotation);
-            } catch (Exception exception) {
-                _logger.LogInformation($"Echec to get Rotation Champion League Of Legend: {exception}");
-                //var tmp = new OkObjectResult(null);
-                var tmp = new BadRequestObjectResult(null);
-                return (tmp);
+            } catch (ApiException exception) {
+                _logger.LogInformation($"Echec to get Rotation Champion League Of Legend: {exception.StatusCode}");
+                return ( StatusCode((int)exception.StatusCode));
+            }
+            catch (Exception exc)
+            {
+                _logger.LogInformation($"Critical error: {exc.Message}");
+                return (StatusCode(500));
             }
         }
         #endregion ROUTES

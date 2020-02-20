@@ -7,14 +7,16 @@ using Refit;
 using System.Collections.Generic;
 using dashboardAPI.Models;
 using dashboardAPI.Clients;
+using Microsoft.Extensions.Configuration;
 
 namespace dashboardAPI.Controllers
 {
     [ApiController]
     [Route("/tft")]
-    public class TftControllers
+    public class TftControllers : ControllerBase
     {
         #region MEMBERS
+        private IConfiguration _settings;
         private readonly ILogger<TftControllers> _logger;
         private TftClient _TftClient;
         private CDragonClient _CDragonClient;
@@ -23,22 +25,22 @@ namespace dashboardAPI.Controllers
 
         private List<TftCampanionsModel> _CompanionsList;
 
-        private string _token;
 
         #endregion MEMBERS
 
         #region CONSTRUCTOR
-        public TftControllers(ILogger<TftControllers> logger)
+        public TftControllers(ILogger<TftControllers> logger, IConfiguration iConfig)
         {
+            _settings = iConfig;
             _TftClient = RestService.For<TftClient>("https://europe.api.riotgames.com/tft/match/v1/matches/");
             _CDragonClient = RestService.For<CDragonClient>("http://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/");
             _AccountClient = RestService.For<AccountClient>("https://euw1.api.riotgames.com/lol/summoner/v4/summoners/");
             _logger = logger;
-            _token = "RGAPI-5f9a434e-c60e-45f2-9556-00c19f31510b";
         }
 
         #endregion CONSTRUCTOR
 
+        #region METHODS
         private string GetPicureCampanion(string content_ID)
         {
             foreach (var item in _CompanionsList)
@@ -48,11 +50,12 @@ namespace dashboardAPI.Controllers
             }
             return ("tooltip_tft_avatar_blue.companions.png");
         }
+        #endregion METHODS
 
         #region ROUTES
 
         [HttpGet("games/{matchId}")]
-        public async Task<TftGameModel> GetTftGameAsync(string matchId)
+        public async Task<ActionResult<TftGameModel>> GetTftGameAsync(string matchId)
         {
             _logger.LogInformation($"Trying to get last games tft by ID: {matchId}");
 
@@ -65,37 +68,49 @@ namespace dashboardAPI.Controllers
                         item.loadoutsIcon = item.loadoutsIcon.Split('/')[6].ToLower();
                     }
                 }
-                var GamesUser = await _TftClient.GetGameAsync(_token, matchId);
+                var token = _settings.GetSection("tft").GetSection("token").Value;
+                var GamesUser = await _TftClient.GetGameAsync(token, matchId);
                 var Result = JsonConvert.DeserializeObject<TftGameModel>(GamesUser);
                 foreach (var participant in Result.info.participants)
                 {
-                    var Account = await _AccountClient.GetAccountByPuuidAsync(_token, participant.puuid);
+                    var Account = await _AccountClient.GetAccountByPuuidAsync(token, participant.puuid);
                     var ResAccount = JsonConvert.DeserializeObject<AccountModel>(Account);
                     participant.name = ResAccount.name;
                     participant.companion.linkPicture = "http://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/companions/" + GetPicureCampanion(participant.companion.content_ID);
                 }
                 return (Result);
-            } catch (Exception exception) {
-                _logger.LogInformation($"Echec to get last games tft by ID: {exception.Message}");
-                return (null);
+            } catch (ApiException exception) {
+                _logger.LogInformation($"Echec to get last games tft by ID: {exception.StatusCode}");
+                return ( StatusCode((int)exception.StatusCode));
+            }
+            catch (Exception exc)
+            {
+                _logger.LogInformation($"Critical error: {exc.Message}");
+                return (StatusCode(500));
             }
         }
 
         [HttpGet("history/{summonerName}")]
-        public async Task<TftListHistoryModel> GetTftHistoryAsync(string summonerName)
+        public async Task<ActionResult<TftListHistoryModel>> GetTftHistoryAsync(string summonerName)
         {
             _logger.LogInformation($"Trying to get last games tft by name: {summonerName}");
 
             try {
-                var Account = await _AccountClient.GetAccountByNameAsync(_token, summonerName);
+                var token = _settings.GetSection("tft").GetSection("token").Value;
+                var Account = await _AccountClient.GetAccountByNameAsync(token, summonerName);
                 var ResAccount = JsonConvert.DeserializeObject<AccountModel>(Account);
-                var HistoryUser = await _TftClient.GetListHistoryAsync(_token, ResAccount.puuid);
+                var HistoryUser = await _TftClient.GetListHistoryAsync(token, ResAccount.puuid);
                 TftListHistoryModel Result = new TftListHistoryModel();
                 Result.data = HistoryUser;
                 return (Result);
-            } catch (Exception exception) {
-                _logger.LogInformation($"Trying to get last games tft by name: {exception.Message}");
-                return (null);
+            } catch (ApiException exception) {
+                _logger.LogInformation($"Trying to get last games tft by name: {exception.StatusCode}");
+                return ( StatusCode((int)exception.StatusCode));
+            }
+            catch (Exception exc)
+            {
+                _logger.LogInformation($"Critical error: {exc.Message}");
+                return (StatusCode(500));
             }
         }
 

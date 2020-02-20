@@ -7,14 +7,16 @@ using Refit;
 using System.Collections.Generic;
 using dashboardAPI.Models;
 using dashboardAPI.Clients;
+using Microsoft.Extensions.Configuration;
 
 namespace dashboardAPI.Controllers
 {
     [ApiController]
     [Route("/lol/games")]
-    public class GameControllers
+    public class GameControllers : ControllerBase
     {
         #region MEMBERS
+        private IConfiguration _settings;
         private readonly ILogger<GameControllers> _logger;
         private LolGameClient _GameClient;
         private DragonClient _DragonClient;
@@ -23,51 +25,20 @@ namespace dashboardAPI.Controllers
         private ListItemsModel _ListItems;
         private ListSummonersModel _ListSummoners;
 
-        private string _token;
-
         #endregion MEMBERS
 
         #region CONSTRUCTOR
-        public GameControllers(ILogger<GameControllers> logger)
+        public GameControllers(ILogger<GameControllers> logger, IConfiguration iConfig)
         {
+            _settings = iConfig;
             _GameClient = RestService.For<LolGameClient>("https://euw1.api.riotgames.com/lol/match/v4/matches/");
             _DragonClient = RestService.For<DragonClient>("http://ddragon.leagueoflegends.com/cdn/9.22.1/data/en_US");
             _logger = logger;
-            _token = "RGAPI-d781b69e-f8f9-4689-b59a-d700c3f62a13";
         }
 
         #endregion CONSTRUCTOR
 
-        #region ROUTES
-
-        [HttpGet("{matchId}")]
-        public async Task<GameModel> GetGameAsync(long matchId)
-        {
-            _logger.LogInformation($"Trying to get 100 last games League Of Legend by name: {matchId}");
-
-            try {
-                if (_ListChampion == null) {
-                    var GetValueAllChamp = await _DragonClient.GetAllChampAsync();
-                    _ListChampion = JsonConvert.DeserializeObject<ListAllChampModel>(GetValueAllChamp);
-                }
-                if (_ListItems == null) {
-                    var GetValueAllItems = await _DragonClient.GetAllItemsAsync();
-                    _ListItems = JsonConvert.DeserializeObject<ListItemsModel>(GetValueAllItems);
-                }
-                if (_ListSummoners == null) {
-                    var GetValueAllSummoners = await _DragonClient.GetAllSummonersAsync();
-                    _ListSummoners = JsonConvert.DeserializeObject<ListSummonersModel >(GetValueAllSummoners);
-                }
-                var GamesUser = await _GameClient.GetGameAsync(_token, matchId);
-                var Result = JsonConvert.DeserializeObject<GameModel>(GamesUser);
-                AnalyseTeam(Result);
-                AnalyseParticipants(Result);
-                return (Result);
-            } catch (Exception exception) {
-                _logger.LogInformation($"Echec to get 100 last games League Of Legend by name: {exception.Message}");
-                return (null);
-            }
-        }
+        #region METHODS
         private void AnalyseParticipants(GameModel Result)
         {
             int index = 0;
@@ -147,6 +118,45 @@ namespace dashboardAPI.Controllers
                 }
             }
             return ("UNKNOW");
+        }
+
+        #endregion METHODS
+
+        #region ROUTES
+
+        [HttpGet("{matchId}")]
+        public async Task<ActionResult<GameModel>> GetGameAsync(long matchId)
+        {
+            _logger.LogInformation($"Trying to get 100 last games League Of Legend by name: {matchId}");
+
+            try {
+                if (_ListChampion == null) {
+                    var GetValueAllChamp = await _DragonClient.GetAllChampAsync();
+                    _ListChampion = JsonConvert.DeserializeObject<ListAllChampModel>(GetValueAllChamp);
+                }
+                if (_ListItems == null) {
+                    var GetValueAllItems = await _DragonClient.GetAllItemsAsync();
+                    _ListItems = JsonConvert.DeserializeObject<ListItemsModel>(GetValueAllItems);
+                }
+                if (_ListSummoners == null) {
+                    var GetValueAllSummoners = await _DragonClient.GetAllSummonersAsync();
+                    _ListSummoners = JsonConvert.DeserializeObject<ListSummonersModel >(GetValueAllSummoners);
+                }
+                var token = _settings.GetSection("lol").GetSection("token").Value;
+                var GamesUser = await _GameClient.GetGameAsync(token, matchId);
+                var Result = JsonConvert.DeserializeObject<GameModel>(GamesUser);
+                AnalyseTeam(Result);
+                AnalyseParticipants(Result);
+                return (Result);
+            } catch (ApiException exception) {
+                _logger.LogInformation($"Echec to get 100 last games League Of Legend by name: {exception.StatusCode}");
+                return ( StatusCode((int)exception.StatusCode));
+            }
+            catch (Exception exc)
+            {
+                _logger.LogInformation($"Critical error: {exc.Message}");
+                return (StatusCode(500));
+            }
         }
 
         #endregion ROUTES
