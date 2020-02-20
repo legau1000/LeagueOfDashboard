@@ -9,7 +9,5 @@ namespace dashboardAPI.Models
         public string profileIconId { get; set; }
         public string revisionDate { get; set; }
         public string summonerLevel { get; set; }
-        public string status_code { get; set; }
-        public string message { get; set; }
     }
 }
